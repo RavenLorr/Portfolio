@@ -57,6 +57,8 @@ const FlowerShootsAnimation = () => {
                 this.vel.y += forceDirection.y;
             }
 
+
+
             this.x += this.vel.x * particleSpeed * dampingFactor;
             this.y += this.vel.y * particleSpeed * dampingFactor;
 
@@ -101,7 +103,18 @@ const FlowerShootsAnimation = () => {
         function loop() {
             const currentTime = Date.now();
             const elapsedTime = currentTime - startTimeRef.current;
-            const dampingFactor = Math.max(0, 1 - elapsedTime / dampingDuration);
+            let dampingFactor = Math.max(0, 1 - elapsedTime / dampingDuration);
+
+            if (windowWidth > 2560 && windowHeight > 1440) { // QHD resolution check
+                const randomValue = Math.random();
+                if (randomValue < 0.25) {
+                    dampingFactor *= 0.25;
+                } else if (randomValue < 0.5) {
+                    dampingFactor *= 0.5;
+                } else if (randomValue < 0.75) {
+                    dampingFactor *= 0.75;
+                }
+            }
 
             let i;
             const length = particlesRef.current.length;
@@ -135,7 +148,18 @@ const FlowerShootsAnimation = () => {
             particlesRef.current = [];
             context.clearRect(0, 0, windowWidth, windowHeight);
             startTimeRef.current = Date.now(); // Reset the damping effect
-            init();
+
+            // Recalculate base radius and center
+            const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = calculateBaseRadiusAndCenter(canvas);
+
+            const adjustedBaseRadius = baseRadius * 0.7;
+            for (let i = 0; i < numberParticlesStart; i++) {
+                const angle = Math.random() * 360;
+                particlesRef.current.push(new Particle(
+                    ringCenterX + (Math.cos(angle) * adjustedBaseRadius),
+                    ringCenterY - (Math.sin(angle) * adjustedBaseRadius),
+                ));
+            }
         };
 
         const updatePathData = () => {
