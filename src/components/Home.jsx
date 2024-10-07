@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import SmokyRing from '../utils/SmokyRing';
+import SmokyRing from './MultiWaveRing.jsx';
 
 function Home() {
     useEffect(() => {

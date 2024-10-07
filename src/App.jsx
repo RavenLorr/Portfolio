@@ -1,17 +1,16 @@
 import React from 'react';
 import NavBar from './components/NavBar.jsx';
-import About from './components/About.jsx';
-import SpaceBackground from './utils/SpaceBackground';
-import SmokyRing from './utils/SmokyRing';
+import SmokyRing from './components/MultiWaveRing.jsx';
+import PointerParticles from './components/PointerParticle.jsx';
+import FlowerShootsAnimation from './components/FlowerShootsAnimation.jsx';
 
 function App() {
     return (
         <div>
-            <NavBar />
-            <SpaceBackground />
-            <About />
+            <FlowerShootsAnimation />
             <canvas id="smoky-ring"></canvas>
             <SmokyRing canvasId="smoky-ring" />
+            <PointerParticles />
         </div>
     );
 }
