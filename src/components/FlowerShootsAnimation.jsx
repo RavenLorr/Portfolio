@@ -14,10 +14,12 @@ const FlowerShootsAnimation = () => {
         let windowWidth = canvas.width = window.innerWidth;
         let windowHeight = canvas.height = window.innerHeight;
 
-        const numberParticlesStart = 1000;
-        const particleSpeed = 0.3;
+        const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = calculateBaseRadiusAndCenter(canvas);
+
+        const numberParticlesStart = Math.max(Math.floor(1000 * scalingFactor), 400);
+        const particleSpeed = Math.max(0.3 * scalingFactor, 0.18);
         const velocity = 0.9;
-        const dampingDuration = 30000; // 30 seconds
+        const dampingDuration = Math.max(30000 * scalingFactor, 12000); // 30 seconds
 
         const getRandomFloat = (min, max) => (Math.random() * (max - min) + min);
 
@@ -31,7 +33,6 @@ const FlowerShootsAnimation = () => {
                 max: getRandomFloat(10, 100) / 10
             };
             this.color = 'rgba(213, 163, 71, 0.05)';
-            this.pathLength = 0;
             this.prevX = x;
             this.prevY = y;
         }
@@ -108,15 +109,15 @@ const FlowerShootsAnimation = () => {
                 particlesRef.current[i].update(dampingFactor);
                 particlesRef.current[i].render();
             }
-            if (particlesRef.current.length > 0) {
-                console.log(`Particle 1 path length: ${particlesRef.current[0].pathLength.toFixed(2)}`);
-            }
             animationRef.current = requestAnimationFrame(loop);
         }
 
         function init() {
-            const { baseRadius, ringCenterX, ringCenterY } = calculateBaseRadiusAndCenter(canvas);
-            const adjustedBaseRadius = baseRadius - 110;
+            // Ensure the canvas dimensions are correctly set
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const adjustedBaseRadius = baseRadius * 0.7;
             let i;
             for (i = 0; i < numberParticlesStart; i++) {
                 const angle = Math.random() * 360;

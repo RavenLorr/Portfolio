@@ -29,10 +29,10 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
         };
 
         const rings = [
-            { radius: 0, waveAmplitude: 24, waveFrequency: 3, direction: 1, lineWidth: 20, color: ["#e3e3e3", "#FFFFFF", "#f0f0f0"] },
+            { radius: 0, waveAmplitude: 22, waveFrequency: 3, direction: 1, lineWidth: 20, color: ["#e3e3e3", "#FFFFFF", "#f0f0f0"] },
             { radius: 5, waveAmplitude: 20, waveFrequency: 5, direction: -1, lineWidth: 20, color: ["#FFFFFF", "#FFFFFF", "#f0f0f0"] },
             { radius: 10, waveAmplitude: 18, waveFrequency: 4, direction: 1, lineWidth: 20, color: ["#FFFFFF", "#f0f0f0", "#e3e3e3"] },
-            { radius: 0, waveAmplitude: 18, waveFrequency: 4, direction: 1, lineWidth: 30, color: ["#FFFFFF", "#e3e3e3", "#FFFFFF"] },
+            { radius: 0, waveAmplitude: 15, waveFrequency: 4, direction: -1, lineWidth: 40, color: ["#FFFFFF", "#e3e3e3", "#FFFFFF"] },
         ];
 
         const wavePoints = 200;
@@ -40,16 +40,20 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
 
         function drawRing(ring, index) {
             const ctx = ctxRef.current;
-            const { baseRadius, ringCenterX, ringCenterY } = calculateBaseRadiusAndCenter(canvasRef.current);
+            const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = calculateBaseRadiusAndCenter(canvasRef.current);
+
+            // Adjust waveAmplitude adaptively based on screen size
             if (index === 3) {
-                ring.waveAmplitude = 30 + 5 * Math.sin(timeRef.current * 0.05);
+                const baseAmplitude = 15; // need to be manually adjusted to avoid glitching
+                const amplitudeVariation = 5;
+                ring.waveAmplitude = (baseAmplitude + amplitudeVariation * Math.sin(timeRef.current * 0.05)) * scalingFactor;
             }
 
             ctx.beginPath();
             const points = [];
             for (let i = 0; i <= wavePoints; i++) {
                 const angle = (i / wavePoints) * Math.PI * 2;
-                const radius = baseRadius + ring.radius + Math.sin(angle * ring.waveFrequency + timeRef.current * fixedSpeed * ring.direction) * ring.waveAmplitude;
+                const radius = baseRadius + ring.radius * scalingFactor + Math.sin(angle * ring.waveFrequency + timeRef.current * fixedSpeed * ring.direction) * ring.waveAmplitude * scalingFactor;
                 const x = ringCenterX + radius * Math.cos(angle);
                 const y = ringCenterY + radius * Math.sin(angle);
                 points.push({ x, y, angle });
@@ -64,15 +68,15 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             gradient.addColorStop(1, ring.color[2]);
 
             ctx.strokeStyle = gradient;
-            ctx.lineWidth = ring.lineWidth;
+            ctx.lineWidth = ring.lineWidth * scalingFactor;
             ctx.stroke();
             if (Math.random() < 0.1) {
                 const point = points[Math.floor(Math.random() * points.length)];
-                const size = Math.random() * 2 + 1;
-                const speed = Math.random() * 0.5 + 0.2;
+                const size = (Math.random() * 2 + 1) * scalingFactor;
+                const speed = (Math.random() * 0.5 + 0.2) * scalingFactor;
                 const inward = Math.random() < 0.3; // 30% chance for inward particles
                 const direction = point.angle + (inward ? Math.PI : 0) + (Math.random() - 0.5) * Math.PI * 0.5;
-                const life = inward ? 100 : 150; // Shorter life for inward particles
+                const life = (inward ? 100 : 150) * scalingFactor; // Shorter life for inward particles
                 particlesRef.current.push(new Particle(point.x, point.y, size, speed, direction, life, inward, ringCenterX, ringCenterY));
             }
         }
@@ -102,17 +106,17 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             ctx.drawImage(offscreenCanvasRef.current, 0, 0);
 
             // Draw glowing outline
-            const { baseRadius, ringCenterX, ringCenterY } = calculateBaseRadiusAndCenter(canvas);
+            const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = calculateBaseRadiusAndCenter(canvas);
             ctx.strokeStyle = "#ffffff";
-            ctx.lineWidth = 40;
+            ctx.lineWidth = 40 * scalingFactor;
             ctx.shadowColor = "#ffffff";
-            ctx.shadowBlur = 15;
+            ctx.shadowBlur = 15 * scalingFactor;
             ctx.beginPath();
             ctx.arc(ringCenterX, ringCenterY, baseRadius, 0, Math.PI * 2);
             ctx.stroke();
 
             // Write text
-            ctx.font = `bold 60px 'Space Game'`;
+            ctx.font = `bold ${60 * scalingFactor}px 'Space Game'`;
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";

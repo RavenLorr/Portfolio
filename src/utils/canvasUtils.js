@@ -1,6 +1,9 @@
 export const calculateBaseRadiusAndCenter = (canvas) => {
-    const baseRadius = Math.min(1920, 1080) * 0.30;
+    const referenceWidth = 1920;
+    const referenceHeight = 1080;
+    const scalingFactor = Math.min(canvas.width / referenceWidth, canvas.height / referenceHeight);
+    const baseRadius = Math.min(referenceWidth, referenceHeight) * 0.30 * scalingFactor;
     const ringCenterX = canvas.width / 2;
     const ringCenterY = canvas.height / 2;
-    return { baseRadius, ringCenterX, ringCenterY };
+    return { baseRadius, ringCenterX, ringCenterY, scalingFactor };
 };
