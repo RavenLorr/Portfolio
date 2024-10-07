@@ -1,25 +1,22 @@
 import React, { useEffect, useRef } from 'react';
-import { calculateBaseRadiusAndCenter } from '../utils/canvasUtils';
+import { CanvasUtils } from '../utils/CanvasUtils';
 
 const FlowerShootsAnimation = () => {
     const canvasRef = useRef(null);
     const particlesRef = useRef([]);
     const animationRef = useRef(null);
-    const pathDataRef = useRef([]);
     const startTimeRef = useRef(Date.now());
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
-        let windowWidth = canvas.width = window.innerWidth;
-        let windowHeight = canvas.height = window.innerHeight;
 
-        const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = calculateBaseRadiusAndCenter(canvas);
+        const {scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
 
-        const numberParticlesStart = Math.max(Math.floor(1000 * scalingFactor), 400);
-        const particleSpeed = Math.max(0.3 * scalingFactor, 0.18);
+        const numberParticlesStart = Math.min(Math.max(Math.floor(1000 * scalingFactor), 400), 2000);
+        const particleSpeed = Math.min(Math.max(0.3 * scalingFactor, 0.18), 0.6);
         const velocity = 0.9;
-        const dampingDuration = Math.max(30000 * scalingFactor, 12000); // 30 seconds
+        const dampingDuration = Math.min(Math.max(30000 * scalingFactor, 12000), 60000);
 
         const getRandomFloat = (min, max) => (Math.random() * (max - min) + min);
 
@@ -33,14 +30,12 @@ const FlowerShootsAnimation = () => {
                 max: getRandomFloat(10, 100) / 10
             };
             this.color = 'rgba(213, 163, 71, 0.05)';
-            this.prevX = x;
-            this.prevY = y;
         }
 
         Particle.prototype.render = function () {
             context.beginPath();
             context.fillStyle = this.color;
-            context.arc(this.x, this.y, 1, 0, Math.PI * 2);
+            context.arc(this.x, this.y, scalingFactor, 0, Math.PI * 2);
             context.fill();
         };
 
@@ -57,8 +52,6 @@ const FlowerShootsAnimation = () => {
                 this.vel.y += forceDirection.y;
             }
 
-
-
             this.x += this.vel.x * particleSpeed * dampingFactor;
             this.y += this.vel.y * particleSpeed * dampingFactor;
 
@@ -70,25 +63,18 @@ const FlowerShootsAnimation = () => {
             }
 
             this.testBorder();
-
-            // Calculate the distance traveled
-            const dx = this.x - this.prevX;
-            const dy = this.y - this.prevY;
-            this.pathLength += Math.sqrt(dx * dx + dy * dy);
-            this.prevX = this.x;
-            this.prevY = this.y;
         };
 
         Particle.prototype.testBorder = function () {
-            if (this.x > windowWidth) {
+            if (this.x > canvas.width) {
                 this.setPosition(this.x, 'x');
             } else if (this.x < 0) {
-                this.setPosition(windowWidth, 'x');
+                this.setPosition(0, 'x');
             }
-            if (this.y > windowHeight) {
+            if (this.y > canvas.height) {
                 this.setPosition(this.y, 'y');
             } else if (this.y < 0) {
-                this.setPosition(windowHeight, 'y');
+                this.setPosition(0, 'y');
             }
         };
 
@@ -105,7 +91,7 @@ const FlowerShootsAnimation = () => {
             const elapsedTime = currentTime - startTimeRef.current;
             let dampingFactor = Math.max(0, 1 - elapsedTime / dampingDuration);
 
-            if (windowWidth > 2560 && windowHeight > 1440) { // QHD resolution check
+            if (canvas.width > 2560 && canvas.height > 1440) {
                 const randomValue = Math.random();
                 if (randomValue < 0.25) {
                     dampingFactor *= 0.25;
@@ -116,9 +102,7 @@ const FlowerShootsAnimation = () => {
                 }
             }
 
-            let i;
-            const length = particlesRef.current.length;
-            for (i = 0; i < length; i++) {
+            for (let i = 0; i < particlesRef.current.length; i++) {
                 particlesRef.current[i].update(dampingFactor);
                 particlesRef.current[i].render();
             }
@@ -126,59 +110,29 @@ const FlowerShootsAnimation = () => {
         }
 
         function init() {
-            // Ensure the canvas dimensions are correctly set
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const adjustedBaseRadius = baseRadius * 0.7;
-            let i;
-            for (i = 0; i < numberParticlesStart; i++) {
-                const angle = Math.random() * 360;
-                particlesRef.current.push(new Particle(
-                    ringCenterX + (Math.cos(angle) * adjustedBaseRadius),
-                    ringCenterY - (Math.sin(angle) * adjustedBaseRadius),
-                ));
-            }
+            CanvasUtils.setCanvasDimensions(canvas);
+            const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+            const numberParticlesStart = Math.max(Math.floor(1000 * scalingFactor), 400);
+            CanvasUtils.createCircularParticles(particlesRef, Particle, baseRadius, ringCenterX, ringCenterY, numberParticlesStart);
         }
 
         init();
         window.onresize = () => {
-            windowWidth = canvas.width = window.innerWidth;
-            windowHeight = canvas.height = window.innerHeight;
+            CanvasUtils.resizeCanvas(canvas);
             particlesRef.current = [];
-            context.clearRect(0, 0, windowWidth, windowHeight);
-            startTimeRef.current = Date.now(); // Reset the damping effect
-
-            // Recalculate base radius and center
-            const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = calculateBaseRadiusAndCenter(canvas);
-
-            const adjustedBaseRadius = baseRadius * 0.7;
-            for (let i = 0; i < numberParticlesStart; i++) {
-                const angle = Math.random() * 360;
-                particlesRef.current.push(new Particle(
-                    ringCenterX + (Math.cos(angle) * adjustedBaseRadius),
-                    ringCenterY - (Math.sin(angle) * adjustedBaseRadius),
-                ));
-            }
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            startTimeRef.current = Date.now();
+            const { baseRadius, ringCenterX, ringCenterY} = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+            CanvasUtils.createCircularParticles(particlesRef, Particle, baseRadius, ringCenterX, ringCenterY, numberParticlesStart);
         };
-
-        const updatePathData = () => {
-            pathDataRef.current = particlesRef.current.map(particle => ({
-                x: Math.floor(particle.x),
-                y: Math.floor(particle.y)
-            }));
-        };
-
-        updatePathData();
 
         loop();
 
         return () => {
             window.removeEventListener('resize', () => {});
-            window.removeEventListener('click', () => {});
             cancelAnimationFrame(animationRef.current);
         };
-    }, [particlesRef]);
+    }, []);
 
     return (
         <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }} />

@@ -1,7 +1,65 @@
 import React, { useEffect, useRef } from 'react';
+import { CanvasUtils } from '../utils/CanvasUtils';
+
+const PointerParticles = () => {
+    const canvasRef = useRef(null);
+    const particlesRef = useRef([]);
+    const pointerRef = useRef({ x: 0, y: 0, mx: 0, my: 0 });
+    const animationRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        const setPointerValues = (event) => {
+            pointerRef.current.x = event.clientX;
+            pointerRef.current.y = event.clientY;
+            pointerRef.current.mx = event.movementX;
+            pointerRef.current.my = event.movementY;
+        };
+
+        const handlePointerMove = (event) => {
+            setPointerValues(event);
+            const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+            const particles = CanvasUtils.createParticles(2.5, CanvasUtils.getPointerVelocity(event), 1, ctx, pointerRef.current, scalingFactor);
+            particlesRef.current.push(...particles);
+        };
+
+        const handleClick = (event) => {
+            setPointerValues(event);
+            const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+            const particles = CanvasUtils.createParticles(10, Math.random() + 1, Math.random() + 50, ctx, pointerRef.current, scalingFactor);
+            particlesRef.current.push(...particles);
+        };
+
+        const animateParticles = () => {
+            animationRef.current = requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            CanvasUtils.handleParticles(particlesRef.current);
+        };
+
+        window.addEventListener('resize', () => CanvasUtils.setCanvasDimensions(canvas));
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('click', handleClick);
+
+        CanvasUtils.setCanvasDimensions(canvas);
+        animateParticles();
+
+        return () => {
+            window.removeEventListener('resize', () => CanvasUtils.setCanvasDimensions(canvas));
+            window.removeEventListener('pointermove', handlePointerMove);
+            window.removeEventListener('click', handleClick);
+            cancelAnimationFrame(animationRef.current);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />;
+};
+
+export default PointerParticles;
 
 class PointerParticle {
-    constructor(spread, speed, component) {
+    constructor(spread, speed, component, scalingFactor) {
         const { ctx, pointer } = component;
 
         this.ctx = ctx;
@@ -9,7 +67,7 @@ class PointerParticle {
         this.y = pointer.y;
         this.mx = pointer.mx * 0.1;
         this.my = pointer.my * 0.1;
-        this.size = Math.random() + 1;
+        this.size = (Math.random() + 1) * scalingFactor;
         this.decay = 0.01;
         this.speed = speed * 0.08;
         this.spread = spread * this.speed;
@@ -41,83 +99,4 @@ class PointerParticle {
     }
 }
 
-const PointerParticles = () => {
-    const canvasRef = useRef(null);
-    const particlesRef = useRef([]);
-    const pointerRef = useRef({ x: 0, y: 0, mx: 0, my: 0 });
-    const animationRef = useRef(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-
-        const setCanvasDimensions = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        const createParticles = (event, { count, speed, spread }) => {
-            setPointerValues(event);
-
-            for (let i = 0; i < count; i++) {
-                particlesRef.current.push(new PointerParticle(spread, speed, { ctx, pointer: pointerRef.current }));
-            }
-        };
-
-        const setPointerValues = (event) => {
-            pointerRef.current.x = event.clientX;
-            pointerRef.current.y = event.clientY;
-            pointerRef.current.mx = event.movementX;
-            pointerRef.current.my = event.movementY;
-        };
-
-        const handleParticles = () => {
-            for (let i = 0; i < particlesRef.current.length; i++) {
-                particlesRef.current[i].update();
-
-                if (particlesRef.current[i].size <= 0.1) {
-                    particlesRef.current.splice(i, 1);
-                    i--;
-                }
-            }
-        };
-
-        const animateParticles = () => {
-            animationRef.current = requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            handleParticles();
-        };
-
-        const handlePointerMove = (event) => {
-            createParticles(event, { count: 2.5, speed: getPointerVelocity(event), spread: 1 });
-        };
-
-        const handleClick = (event) => {
-            createParticles(event, { count: 10, speed: Math.random() + 1, spread: Math.random() + 50 });
-        };
-
-        const getPointerVelocity = (event) => {
-            const a = event.movementX;
-            const b = event.movementY;
-            return Math.floor(Math.sqrt(a * a + b * b));
-        };
-
-        window.addEventListener('resize', setCanvasDimensions);
-        window.addEventListener('pointermove', handlePointerMove);
-        window.addEventListener('click', handleClick);
-
-        setCanvasDimensions();
-        animateParticles();
-
-        return () => {
-            window.removeEventListener('resize', setCanvasDimensions);
-            window.removeEventListener('pointermove', handlePointerMove);
-            window.removeEventListener('click', handleClick);
-            cancelAnimationFrame(animationRef.current);
-        };
-    }, []);
-
-    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />;
-};
-
-export default PointerParticles;
+export { PointerParticle };
