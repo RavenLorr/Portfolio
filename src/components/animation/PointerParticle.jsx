@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { CanvasUtils } from '../utils/CanvasUtils';
+import { CanvasUtils } from '../../utils/canvasUtils.js';
 
 const PointerParticles = () => {
     const canvasRef = useRef(null);
@@ -53,7 +53,7 @@ const PointerParticles = () => {
         };
     }, []);
 
-    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />;
+    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: '60' }} />;
 };
 
 export default PointerParticles;

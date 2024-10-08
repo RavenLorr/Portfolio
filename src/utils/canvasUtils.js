@@ -1,4 +1,4 @@
-import { PointerParticle } from '../components/PointerParticle.jsx';
+import { PointerParticle } from '../components/animation/PointerParticle.jsx';
 
 export class CanvasUtils {
     static setCanvasDimensions(canvas) {

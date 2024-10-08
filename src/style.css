@@ -554,40 +554,6 @@ video {
   display: none;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
-
 .collapse {
   visibility: collapse;
 }
@@ -612,6 +578,10 @@ video {
   inset: 0px;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .right-0 {
   right: 0px;
 }
@@ -620,36 +590,24 @@ video {
   top: 0px;
 }
 
-.left-0 {
-  left: 0px;
-}
-
-.z-\[-1\] {
-  z-index: -1;
-}
-
-.z-0 {
-  z-index: 0;
-}
-
 .z-10 {
   z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .z-\[1\] {
   z-index: 1;
 }
 
-.z-\[2\] {
-  z-index: 2;
-}
-
-.z-\[3\] {
-  z-index: 3;
-}
-
-.z-20 {
-  z-index: 20;
+.z-0 {
+  z-index: 0;
 }
 
 .ml-auto {
@@ -666,10 +624,6 @@ video {
 
 .h-full {
   height: 100%;
-}
-
-.h-\[calc\(100vh-6rem\)\] {
-  height: calc(100vh - 6rem);
 }
 
 .min-h-screen {
@@ -707,12 +661,33 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-custom-radial-opacity {
+  background-color: rgba(24, 79, 82, 0.8);
+}
+
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+
 .bg-custom-radial {
   background-image: radial-gradient(circle, #184F52, #123C3E, #030B0A);
 }
 
+.bg-center {
+  background-position: center;
+}
+
 .p-4 {
   padding: 1rem;
+}
+
+.font-space-game {
+  font-family: Space Game, sans-serif;
 }
 
 .text-4xl {
@@ -723,16 +698,6 @@ video {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .font-bold {
@@ -759,18 +724,6 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.backdrop-blur-md {
-  --tw-backdrop-blur: blur(12px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
-.backdrop-brightness-125 {
-  --tw-backdrop-brightness: brightness(1.25);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -779,8 +732,14 @@ video {
   transition-duration: 150ms;
 }
 
-.ease-out {
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+@font-face {
+  font-family: 'Space Game';
+
+  src: url('../public/fonts/SpaceGame-ywxX2.ttf') format('truetype');
 }
 
 .hover\:underline:hover {

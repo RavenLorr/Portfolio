@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { CanvasUtils } from '../utils/CanvasUtils';
+import { CanvasUtils } from '../../utils/canvasUtils.js';
 
-const FlowerShootsAnimation = () => {
+const FlowerShoots = () => {
     const canvasRef = useRef(null);
     const particlesRef = useRef([]);
     const animationRef = useRef(null);
@@ -155,4 +155,4 @@ const FlowerShootsAnimation = () => {
     );
 };
 
-export default FlowerShootsAnimation;
+export default FlowerShoots;

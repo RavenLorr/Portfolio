@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
-import SmokyRing from './MultiWaveRing.jsx';
+import React from 'react';
+import MultiWaveRing from './animation/MultiWaveRing';
+import FlowerShoots from './animation/FlowerShoots';
 
 function Home() {
-    useEffect(() => {
-        SmokyRing('smokyCanvas');
-    }, []);
-
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <canvas id="smokyCanvas" className="absolute"></canvas>
-            <h1 className="text-4xl font-bold">Welcome to My Portfolio</h1>
-            <p className="text-lg text-gray-700 mt-4">This is the home page.</p>
+        <div>
+            <div className="bg-custom-radial min-h-screen"></div>
+            <div className="absolute inset-0 z-20">
+                <canvas id="smoky-ring" className="w-full h-full"></canvas>
+                <MultiWaveRing canvasId="smoky-ring"/>
+            </div>
+            <div className="relative z-10">
+                <FlowerShoots/>
+            </div>
         </div>
     );
 }

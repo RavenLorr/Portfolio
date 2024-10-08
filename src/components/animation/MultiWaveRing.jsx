@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { CanvasUtils } from '../utils/CanvasUtils';
+import { CanvasUtils } from '../../utils/canvasUtils.js';
 
 function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
     const animationRef = useRef(null);
