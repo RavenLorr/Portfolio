@@ -6,6 +6,7 @@ const FlowerShootsAnimation = () => {
     const particlesRef = useRef([]);
     const animationRef = useRef(null);
     const startTimeRef = useRef(Date.now());
+    const animationFrameRef = useRef(0);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -21,25 +22,28 @@ const FlowerShootsAnimation = () => {
         const getRandomFloat = (min, max) => (Math.random() * (max - min) + min);
 
         function Particle(x, y) {
+            const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
             this.x = x;
             this.y = y;
             this.vel = {
-                x: getRandomFloat(-20, 20) / 100,
-                y: getRandomFloat(-20, 20) / 100,
-                min: getRandomFloat(2, 10),
-                max: getRandomFloat(10, 100) / 10
+                x: getRandomFloat(-20, 20) / 100 * scalingFactor,
+                y: getRandomFloat(-20, 20) / 100 * scalingFactor,
+                min: getRandomFloat(2, 10) * scalingFactor,
+                max: getRandomFloat(10, 100) / 10 * scalingFactor
             };
             this.color = 'rgba(213, 163, 71, 0.05)';
         }
 
         Particle.prototype.render = function () {
+            const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
             context.beginPath();
             context.fillStyle = this.color;
-            context.arc(this.x, this.y, scalingFactor, 0, Math.PI * 2);
+            context.arc(this.x, this.y, Math.max(0.5, Math.min(scalingFactor, 2)), 0, Math.PI * 2);
             context.fill();
         };
 
         Particle.prototype.update = function (dampingFactor) {
+            const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
             const forceDirection = {
                 x: getRandomFloat(-1, 1),
                 y: getRandomFloat(-1, 1),
@@ -52,8 +56,8 @@ const FlowerShootsAnimation = () => {
                 this.vel.y += forceDirection.y;
             }
 
-            this.x += this.vel.x * particleSpeed * dampingFactor;
-            this.y += this.vel.y * particleSpeed * dampingFactor;
+            this.x += this.vel.x * particleSpeed * dampingFactor * scalingFactor;
+            this.y += this.vel.y * particleSpeed * dampingFactor * scalingFactor;
 
             if (Math.abs(this.vel.x) > this.vel.min) {
                 this.vel.x *= velocity;
@@ -92,6 +96,12 @@ const FlowerShootsAnimation = () => {
             let dampingFactor = Math.max(0, 1 - elapsedTime / dampingDuration);
 
             if (canvas.width > 2560 && canvas.height > 1440) {
+                if (animationFrameRef.current % 2 !== 0) {
+                    animationRef.current = requestAnimationFrame(loop);
+                    animationFrameRef.current++;
+                    return;
+                }
+
                 const randomValue = Math.random();
                 if (randomValue < 0.25) {
                     dampingFactor *= 0.25;
@@ -106,7 +116,9 @@ const FlowerShootsAnimation = () => {
                 particlesRef.current[i].update(dampingFactor);
                 particlesRef.current[i].render();
             }
+
             animationRef.current = requestAnimationFrame(loop);
+            animationFrameRef.current++;
         }
 
         function init() {
@@ -114,6 +126,7 @@ const FlowerShootsAnimation = () => {
             const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
             const numberParticlesStart = Math.max(Math.floor(1000 * scalingFactor), 400);
             CanvasUtils.createCircularParticles(particlesRef, Particle, baseRadius, ringCenterX, ringCenterY, numberParticlesStart);
+            animationFrameRef.current = 0;
         }
 
         init();

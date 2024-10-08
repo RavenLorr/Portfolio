@@ -7,10 +7,10 @@ import './app.css';
 
 function App() {
     return (
-        <div className="bg-custom-radial">
+        <div className="relative bg-custom-radial">
             <NavBar/>
-            <div className="Fixed top-0 left-0 z-20 w-full h-full flex items-center justify-center">
-                <canvas id="smoky-ring" className="w-full h-full absolute top-0 left-0"></canvas>
+            <div className="relative inset-0 z-20">
+                <canvas id="smoky-ring" className="w-full h-full"></canvas>
                 <MultiWaveRing canvasId="smoky-ring"/>
             </div>
             <div className="z-10">

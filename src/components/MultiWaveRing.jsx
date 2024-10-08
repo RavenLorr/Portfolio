@@ -22,9 +22,8 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
 
         const resizeCanvas = () => {
             const canvas = canvasRef.current;
-            const container = canvas.parentElement;
-            canvas.width = container.clientWidth;
-            canvas.height = container.clientHeight;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             offscreenCanvasRef.current.width = canvas.width;
             offscreenCanvasRef.current.height = canvas.height;
         };
@@ -43,17 +42,22 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             const ctx = ctxRef.current;
             const { baseRadius, ringCenterX, ringCenterY, scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvasRef.current);
 
+            // Adjust ring properties based on scalingFactor
+            const adjustedRadius = ring.radius * scalingFactor;
+            let adjustedWaveAmplitude = ring.waveAmplitude * scalingFactor;
+            const adjustedLineWidth = ring.lineWidth * scalingFactor;
+
             if (index === 3) {
                 const baseAmplitude = 15;
                 const amplitudeVariation = 10;
-                ring.waveAmplitude = (baseAmplitude + amplitudeVariation * Math.sin(timeRef.current * 0.05)) / scalingFactor;
+                adjustedWaveAmplitude = Math.min((baseAmplitude + amplitudeVariation * Math.sin(timeRef.current * 0.05)) * scalingFactor, baseAmplitude * 2);
             }
 
             ctx.beginPath();
             const points = [];
             for (let i = 0; i <= wavePoints; i++) {
                 const angle = (i / wavePoints) * Math.PI * 2;
-                const radius = baseRadius + ring.radius * scalingFactor + Math.sin(angle * ring.waveFrequency + timeRef.current * fixedSpeed * ring.direction) * ring.waveAmplitude * scalingFactor;
+                const radius = baseRadius + adjustedRadius + Math.sin(angle * ring.waveFrequency + timeRef.current * fixedSpeed * ring.direction) * adjustedWaveAmplitude;
                 const x = ringCenterX + radius * Math.cos(angle);
                 const y = ringCenterY + radius * Math.sin(angle);
                 points.push({ x, y, angle });
@@ -68,7 +72,7 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             gradient.addColorStop(1, ring.color[2]);
 
             ctx.strokeStyle = gradient;
-            ctx.lineWidth = ring.lineWidth * scalingFactor;
+            ctx.lineWidth = adjustedLineWidth;
             ctx.stroke();
 
             if (Math.random() < 0.1) {
@@ -115,7 +119,8 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             ctx.arc(ringCenterX, ringCenterY, baseRadius, 0, Math.PI * 2);
             ctx.stroke();
 
-            ctx.font = `bold ${60 * scalingFactor}px 'Space Game'`;
+            const fontSize = 60 * scalingFactor;
+            ctx.font = `bold ${fontSize}px 'Space Game'`;
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
@@ -124,12 +129,16 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             timeRef.current += 1;
         }
 
-        window.addEventListener('resize', resizeCanvas);
+        const handleResize = () => {
+            resizeCanvas();
+        };
+
+        window.addEventListener('resize', handleResize);
         resizeCanvas();
         animate();
 
         return () => {
-            window.removeEventListener('resize', resizeCanvas);
+            window.removeEventListener('resize', handleResize);
             if (animationRef.current) {
                 cancelAnimationFrame(animationRef.current);
             }
@@ -138,6 +147,5 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
 
     return <canvas ref={canvasRef} className="w-full h-full z-10" />;
 }
-
 
 export default MultiWaveRing;

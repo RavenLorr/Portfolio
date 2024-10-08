@@ -33,10 +33,18 @@ export class CanvasUtils {
     static calculateBaseRadiusAndCenter(canvas) {
         const referenceWidth = 1920;
         const referenceHeight = 1080;
-        const scalingFactor = Math.min(canvas.width / referenceWidth, canvas.height / referenceHeight);
-        const baseRadius = Math.min(referenceWidth, referenceHeight) * 0.30 * scalingFactor;
+
+        const widthScalingFactor = canvas.width / referenceWidth;
+        const heightScalingFactor = canvas.height / referenceHeight;
+        const scalingFactor = Math.min(widthScalingFactor, heightScalingFactor);
+
+        // Calculate base radius as 30% of the smaller dimension, scaled
+        const smallerDimension = Math.min(canvas.width, canvas.height);
+        const baseRadius = smallerDimension * 0.30;
+
         const ringCenterX = canvas.width / 2;
         const ringCenterY = canvas.height / 2;
+
         return { baseRadius, ringCenterX, ringCenterY, scalingFactor };
     }
 
