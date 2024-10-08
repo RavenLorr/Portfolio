@@ -11,7 +11,7 @@ const FlowerShootsAnimation = () => {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
 
-        const {scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+        const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
 
         const numberParticlesStart = Math.min(Math.max(Math.floor(1000 * scalingFactor), 400), 2000);
         const particleSpeed = Math.min(Math.max(0.3 * scalingFactor, 0.18), 0.6);
@@ -122,7 +122,7 @@ const FlowerShootsAnimation = () => {
             particlesRef.current = [];
             context.clearRect(0, 0, canvas.width, canvas.height);
             startTimeRef.current = Date.now();
-            const { baseRadius, ringCenterX, ringCenterY} = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+            const { baseRadius, ringCenterX, ringCenterY } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
             CanvasUtils.createCircularParticles(particlesRef, Particle, baseRadius, ringCenterX, ringCenterY, numberParticlesStart);
         };
 
@@ -135,7 +135,10 @@ const FlowerShootsAnimation = () => {
     }, []);
 
     return (
-        <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }} />
+        <canvas
+            ref={canvasRef}
+            className="fixed top-0 left-0 w-full h-full z-[1]"
+        />
     );
 };
 

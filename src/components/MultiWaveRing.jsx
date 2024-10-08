@@ -12,15 +12,21 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
 
     useEffect(() => {
         canvasRef.current = document.getElementById(canvasId);
-        if (!canvasRef.current) {return;}
+        if (!canvasRef.current) return;
 
-        ctxRef.current = canvasRef.current.getContext("2d");
+        const ctx = canvasRef.current.getContext("2d");
+        ctxRef.current = ctx;
 
         offscreenCanvasRef.current = document.createElement('canvas');
         offscreenCtxRef.current = offscreenCanvasRef.current.getContext('2d');
 
         const resizeCanvas = () => {
-            CanvasUtils.resizeCanvas(canvasRef.current, offscreenCanvasRef.current);
+            const canvas = canvasRef.current;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+            offscreenCanvasRef.current.width = canvas.width;
+            offscreenCanvasRef.current.height = canvas.height;
         };
 
         const rings = [
@@ -128,9 +134,10 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
                 cancelAnimationFrame(animationRef.current);
             }
         };
-    }, [canvasId, text]);
+    }, [text]);
 
-    return null;
+    return <canvas ref={canvasRef} className="w-full h-full z-10" />;
 }
+
 
 export default MultiWaveRing;

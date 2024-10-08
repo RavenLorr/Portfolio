@@ -1,13 +1,21 @@
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-@font-face {
-  font-family: 'Space Game';
-  src: url('public/fonts/SpaceGame-ywxX2.ttf') format('truetype');
-}
-
 body {
-  font-family: 'Space Game', Arial, sans-serif;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: moveStar 50s linear infinite;
+}
+
+@keyframes moveStar {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(100vh) translateX(100vw);
+  }
 }
