@@ -20,7 +20,7 @@ const useComponentLoader = () => {
             }
 
             // Add a small delay to ensure everything is ready
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 100));
 
             setIsLoading(false);
         };
