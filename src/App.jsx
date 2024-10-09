@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoadingScreen from './components/loading/LoadingScreen';
 import useComponentLoader from './utils/useComponentLoader';
@@ -7,14 +7,21 @@ import './app.css';
 
 function App() {
     const { isLoading, progress } = useComponentLoader();
+    const [initialLoad, setInitialLoad] = useState(true);
 
-    if (isLoading) {
+    useEffect(() => {
+        if (!isLoading) {
+            setInitialLoad(false);
+        }
+    }, [isLoading]);
+
+    if (isLoading && initialLoad) {
         return <LoadingScreen progress={progress} />;
     }
 
     return (
         <Router>
-            <Suspense fallback={<LoadingScreen progress={100} />}>
+            <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center text-white">Loading...</div>}>
                 <div className="relative">
                     <div className="bg-custom-radial min-h-screen"></div>
                     <NavBar/>

@@ -9,7 +9,7 @@ function Home() {
                 <MultiWaveRing canvasId="smoky-ring"/>
             </div>
             <div className="relative z-10">
-                <FlowerShoots/>
+                <FlowerShoots/>n ^0   
             </div>
         </div>
     );
