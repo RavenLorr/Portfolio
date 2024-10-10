@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { CanvasUtils } from '../../utils/canvasUtils.js';
+import {useEffect, useRef} from 'react';
+import {CanvasUtils} from '../../utils/canvasUtils.js';
 
 function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
     const animationRef = useRef(null);
@@ -14,8 +14,7 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
         canvasRef.current = document.getElementById(canvasId);
         if (!canvasRef.current) return;
 
-        const ctx = canvasRef.current.getContext("2d");
-        ctxRef.current = ctx;
+        ctxRef.current = canvasRef.current.getContext("2d");
 
         offscreenCanvasRef.current = document.createElement('canvas');
         offscreenCtxRef.current = offscreenCanvasRef.current.getContext('2d');
