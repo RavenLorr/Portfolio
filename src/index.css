@@ -6,3 +6,11 @@
     font-family: 'Space Game';
     src: url('../public/fonts/SpaceGame-ywxX2.ttf') format('truetype');
 }
+
+.w-30p {
+    width: 30%;
+}
+
+.h-90p {
+    height: 90%;
+}
