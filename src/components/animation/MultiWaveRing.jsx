@@ -142,9 +142,9 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
                 cancelAnimationFrame(animationRef.current);
             }
         };
-    }, [text]);
+    }, [canvasId, text]);
 
-    return <canvas ref={canvasRef} className="w-full h-full z-10" />;
+    return null;
 }
 
 export default MultiWaveRing;

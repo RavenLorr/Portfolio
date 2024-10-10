@@ -5,6 +5,10 @@ import useComponentLoader from './utils/useComponentLoader';
 import { NavBar, Home, About, Projects, Contact, Experience, PointerParticles } from './utils/lazyComponents';
 import './app.css';
 
+/*
+* npx tailwindcss -i ./src/index.css -o ./src/style.css --watch
+* */
+
 function App() {
     const { isLoading, progress } = useComponentLoader();
     const [initialLoad, setInitialLoad] = useState(true);
@@ -22,16 +26,17 @@ function App() {
     return (
         <Router>
             <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center text-white">Loading...</div>}>
-                <div className="relative">
-                    <div className="bg-custom-radial min-h-screen"></div>
+                <div className="relative min-h-screen bg-custom-radial">
                     <NavBar/>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/about" element={<About/>}/>
-                        <Route path="/projects" element={<Projects/>}/>
-                        <Route path="/contact" element={<Contact/>}/>
-                        <Route path="/experience" element={<Experience/>}/>
-                    </Routes>
+                    <div className="relative z-10">
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/about" element={<About/>}/>
+                            <Route path="/projects" element={<Projects/>}/>
+                            <Route path="/contact" element={<Contact/>}/>
+                            <Route path="/experience" element={<Experience/>}/>
+                        </Routes>
+                    </div>
                     <PointerParticles/>
                 </div>
             </Suspense>
