@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
+
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const publicKey = import.meta.env.VITE_EMAILJS_API_KEY;
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -32,8 +37,14 @@ function Contact() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        setFormData({ name: '', email: '', message: '' });
+
+        emailjs.send(serviceId, templateId, formData, publicKey)
+            .then(() => {
+                alert('Message sent successfully!');
+                setFormData({ name: '', email: '', message: '' });
+            }, () => {
+                alert('Failed to send message. Please try again.');
+            });
     };
 
     return (

@@ -862,7 +862,7 @@ video {
 @font-face {
   font-family: 'Space Game';
 
-  src: url('../public/fonts/SpaceGame-ywxX2.ttf') format('truetype');
+  src: url('/fonts/SpaceGame-ywxX2.ttf') format('truetype');
 }
 
 .w-30p {
