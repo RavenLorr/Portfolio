@@ -1,4 +1,3 @@
-import React from 'react';
 import { MultiWaveRing, FlowerShoots } from '../utils/lazyComponents';
 
 function Home() {

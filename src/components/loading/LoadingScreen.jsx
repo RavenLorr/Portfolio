@@ -1,5 +1,3 @@
-import React from 'react';
-
 const LoadingScreen = ({ progress }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-custom-radial z-50">
