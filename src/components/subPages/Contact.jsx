@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
+import ReCAPTCHA from "react-google-recaptcha";
+import DOMPurify from 'dompurify';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const publicKey = import.meta.env.VITE_EMAILJS_API_KEY;
+const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
+const MAX_MESSAGE_LENGTH = 5000;
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -12,8 +17,11 @@ function Contact() {
         email: '',
         message: ''
     });
+    const [captchaToken, setCaptchaToken] = useState(null);
+    const [emailError, setEmailError] = useState('');
     const formRef = useRef(null);
     const connectRef = useRef(null);
+    const recaptchaRef = useRef(null);
 
     useEffect(() => {
         const adjustFormHeight = () => {
@@ -31,19 +39,63 @@ function Contact() {
         return () => window.removeEventListener('resize', adjustFormHeight);
     }, []);
 
+    const sanitizeInput = (input) => {
+        return DOMPurify.sanitize(input, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+    };
+
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === 'message' && value.length > MAX_MESSAGE_LENGTH) {
+            return;
+        }
+        const sanitizedValue = sanitizeInput(value);
+        setFormData({ ...formData, [name]: sanitizedValue });
+
+        if (name === 'email') {
+            validateEmail(sanitizedValue);
+        }
+    };
+
+    const validateEmail = (email) => {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!re.test(email)) {
+            setEmailError('Veuillez entrer une adresse email valide');
+        } else {
+            setEmailError('');
+        }
+    };
+
+    const handleCaptchaChange = (token) => {
+        setCaptchaToken(token);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        emailjs.send(serviceId, templateId, formData, publicKey)
+        if (emailError) {
+            alert('Veuillez corriger l\'adresse email avant d\'envoyer');
+            return;
+        }
+
+        if (!captchaToken) {
+            alert('Veuillez compléter le CAPTCHA');
+            return;
+        }
+
+        const sanitizedData = {
+            name: sanitizeInput(formData.name),
+            email: sanitizeInput(formData.email),
+            message: sanitizeInput(formData.message),
+        };
+
+        emailjs.send(serviceId, templateId, { ...sanitizedData, 'g-recaptcha-response': captchaToken }, publicKey)
             .then(() => {
-                alert('Message sent successfully!');
+                alert('Message envoyé avec succès !');
                 setFormData({ name: '', email: '', message: '' });
+                setCaptchaToken(null);
+                recaptchaRef.current.reset();
             }, () => {
-                alert('Failed to send message. Please try again.');
+                alert('Échec de l\'envoi du message. Veuillez réessayer.');
             });
     };
 
@@ -65,6 +117,7 @@ function Contact() {
                                     onChange={handleChange}
                                     required
                                     className="w-full p-2 bg-gray-800 rounded text-white"
+                                    maxLength="100"
                                 />
                             </div>
                             <div>
@@ -77,7 +130,9 @@ function Contact() {
                                     onChange={handleChange}
                                     required
                                     className="w-full p-2 bg-gray-800 rounded text-white"
+                                    maxLength="100"
                                 />
+                                {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
                             </div>
                             <div>
                                 <label htmlFor="message" className="block mb-1 text-white">Message</label>
@@ -89,8 +144,17 @@ function Contact() {
                                     required
                                     className="w-full p-2 bg-gray-800 rounded text-white resize-y"
                                     style={{minHeight: '8rem', maxHeight: '16rem'}}
+                                    maxLength={MAX_MESSAGE_LENGTH}
                                 ></textarea>
+                                <div className="text-right text-sm text-gray-400">
+                                    {formData.message.length}/{MAX_MESSAGE_LENGTH}
+                                </div>
                             </div>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={recaptchaSiteKey}
+                                onChange={handleCaptchaChange}
+                            />
                             <button type="submit" className="w-full p-2 bg-blue-600 hover:bg-blue-700 rounded text-white">
                                 Send Message
                             </button>
