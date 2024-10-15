@@ -36,7 +36,7 @@ export class CanvasUtils {
 
         const widthScalingFactor = canvas.width / referenceWidth;
         const heightScalingFactor = canvas.height / referenceHeight;
-        const scalingFactor = Math.min(widthScalingFactor, heightScalingFactor);
+        const scalingFactor = (widthScalingFactor + heightScalingFactor)/2;
 
         // Calculate base radius as 30% of the smaller dimension, scaled
         const smallerDimension = Math.min(canvas.width, canvas.height);
@@ -44,7 +44,7 @@ export class CanvasUtils {
 
         const ringCenterX = canvas.width / 2;
         const ringCenterY = canvas.height / 2;
-
+        console.log('canvas.width: '+canvas.width+' canvas.height: '+canvas.height+' widthScalingFactor: '+widthScalingFactor+' heightScalingFactor: '+heightScalingFactor+' scalingFactor: '+scalingFactor)
         return { baseRadius, ringCenterX, ringCenterY, scalingFactor };
     }
 

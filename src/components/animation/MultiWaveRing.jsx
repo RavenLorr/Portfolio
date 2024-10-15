@@ -118,7 +118,7 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
             ctx.arc(ringCenterX, ringCenterY, baseRadius, 0, Math.PI * 2);
             ctx.stroke();
 
-            const fontSize = 60 * scalingFactor;
+            const fontSize = Math.round(60 * (scalingFactor/1.5));
             ctx.font = `bold ${fontSize}px 'Space Game'`;
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
