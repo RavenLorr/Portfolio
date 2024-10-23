@@ -19,3 +19,11 @@ body {
     transform: translateY(100vh) translateX(100vw);
   }
 }
+
+:root {
+  --root-font-size: 16px;
+}
+
+html {
+  font-size: var(--root-font-size);
+}
