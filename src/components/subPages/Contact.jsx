@@ -3,6 +3,7 @@ import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from "react-google-recaptcha";
 import DOMPurify from 'dompurify';
+import { ResponsiveUtils } from '../../utils/responsiveUtils';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -24,37 +25,18 @@ function Contact() {
     const connectRef = useRef(null);
     const recaptchaRef = useRef(null);
 
+
     useEffect(() => {
-        const updateRootFontSize = () => {
-            const width = window.innerWidth;
-            let fontSize, scale;
-            if (width >= 7680) { // 8K
-                fontSize = 48;
-                scale = 3;
-            } else if (width >= 5120) { // 5K
-                fontSize = 32;
-                scale = 2;
-            } else if (width >= 3840) { // 4K
-                fontSize = 24;
-                scale = 1.5;
-            } else if (width >= 2560) { // 2K
-                fontSize = 20;
-                scale = 1.25;
-            } else if (width >= 1920) { // Full HD
-                fontSize = 16;
-                scale = 1;
-            } else {
-                fontSize = 16;
-                scale = 1;
-            }
-            document.documentElement.style.setProperty('--root-font-size', `${fontSize}px`);
+        const updateScale = () => {
+            ResponsiveUtils.updateRootFontSize();
+            const { scale } = ResponsiveUtils.getScalingFactor();
             setCaptchaScale(scale);
         };
 
-        updateRootFontSize();
-        window.addEventListener('resize', updateRootFontSize);
+        updateScale();
+        window.addEventListener('resize', updateScale);
 
-        return () => window.removeEventListener('resize', updateRootFontSize);
+        return () => window.removeEventListener('resize', updateScale);
     }, []);
 
 
