@@ -1,0 +1,135 @@
+.timeline-container {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.timeline {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.timeline-section-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.timeline-events {
+    position: relative;
+    height: 100px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.timeline-event {
+    position: absolute;
+    height: 60px;
+    animation: fadeIn 0.5s ease-out;
+    transition: all 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.event-bar {
+    height: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.event-content {
+    position: relative;
+    padding-top: 5px;
+}
+
+.event-title {
+    font-size: 0.9rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    left: 0;
+}
+
+.event-subtitle {
+    font-size: 0.7rem;
+    margin: 0;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    left: 0;
+}
+
+.timeline-years {
+    position: relative;
+    height: 50px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #444;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.year-marker {
+    position: absolute;
+    top: 10px;
+    font-size: 0.8rem;
+    transform: translateX(-50%);
+}
+
+/* Colors for event bars */
+.blue {
+    background-color: #3498db;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.7);
+}
+.green {
+    background-color: #2ecc71;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.7);
+}
+.purple {
+    background-color: #9b59b6;
+    box-shadow: 0 0 15px rgba(155, 89, 182, 0.7);
+}
+.orange {
+    background-color: #e67e22;
+    box-shadow: 0 0 15px rgba(230, 126, 34, 0.7);
+}
+.red {
+    background-color: #e74c3c;
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+}
+.teal {
+    background-color: #1abc9c;
+    box-shadow: 0 0 15px rgba(26, 188, 156, 0.7);
+}
+
+/* Hover effect for event bars */
+.timeline-event:hover {
+    z-index: 10;
+    transform: scale(1.05);
+}
+
+.timeline-event:hover .event-bar {
+    height: 15px;
+}
+
+.timeline-event:hover .blue { box-shadow: 0 0 25px rgba(52, 152, 219, 0.9); }
+.timeline-event:hover .green { box-shadow: 0 0 25px rgba(46, 204, 113, 0.9); }
+.timeline-event:hover .purple { box-shadow: 0 0 25px rgba(155, 89, 182, 0.9); }
+.timeline-event:hover .orange { box-shadow: 0 0 25px rgba(230, 126, 34, 0.9); }
+.timeline-event:hover .red { box-shadow: 0 0 25px rgba(231, 76, 60, 0.9); }
+.timeline-event:hover .teal { box-shadow: 0 0 25px rgba(26, 188, 156, 0.9); }
