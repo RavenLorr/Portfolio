@@ -1,0 +1,13 @@
+@media (max-width: 768px) {
+    .nav-responsive {
+        @apply flex-col items-center;
+    }
+
+    .nav-ul-responsive {
+        @apply flex-col items-center;
+    }
+
+    .nav-li-responsive {
+        @apply my-1;
+    }
+}
