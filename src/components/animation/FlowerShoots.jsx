@@ -10,6 +10,8 @@ const FlowerShoots = () => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        if (!canvas) return;
+
         const context = canvas.getContext('2d');
 
         const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);

@@ -4,6 +4,7 @@ export class CanvasUtils {
     static setCanvasDimensions(canvas) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        return this.getResponsiveAdjustments(canvas);
     }
 
     static createParticles(count, speed, spread, ctx, pointer, scalingFactor) {
@@ -36,16 +37,35 @@ export class CanvasUtils {
 
         const widthScalingFactor = canvas.width / referenceWidth;
         const heightScalingFactor = canvas.height / referenceHeight;
-        const scalingFactor = (widthScalingFactor + heightScalingFactor)/2;
+        let scalingFactor = (widthScalingFactor + heightScalingFactor)/2;
 
-        // Calculate base radius as 30% of the smaller dimension, scaled
+        // Adjust the scaling factor for smaller screens
+        if (canvas.width < 768) {
+            scalingFactor = Math.max(scalingFactor, 0.5); // Ensure minimum scaling
+        }
+
+        // Calculate base radius as a percentage of the smaller dimension
         const smallerDimension = Math.min(canvas.width, canvas.height);
-        const baseRadius = smallerDimension * 0.30;
+        const baseRadius = smallerDimension * (canvas.width < 768 ? 0.2 : 0.3); // Smaller radius for mobile
 
         const ringCenterX = canvas.width / 2;
         const ringCenterY = canvas.height / 2;
-        console.log('canvas.width: '+canvas.width+' canvas.height: '+canvas.height+' widthScalingFactor: '+widthScalingFactor+' heightScalingFactor: '+heightScalingFactor+' scalingFactor: '+scalingFactor)
+
+        console.log('canvas.width: '+canvas.width+' canvas.height: '+canvas.height+' widthScalingFactor: '+widthScalingFactor+' heightScalingFactor: '+heightScalingFactor+' scalingFactor: '+scalingFactor);
         return { baseRadius, ringCenterX, ringCenterY, scalingFactor };
+    }
+
+    static getResponsiveAdjustments(canvas) {
+        const isPortrait = canvas.height > canvas.width;
+        const isMobile = canvas.width < 768;
+
+        return {
+            isPortrait,
+            isMobile,
+            fontSizeMultiplier: isMobile ? 0.8 : 1,
+            particleCountMultiplier: isMobile ? 0.5 : 1,
+            particleSizeMultiplier: isMobile ? 0.8 : 1,
+        };
     }
 
     static resizeCanvas(canvas, offscreenCanvas) {

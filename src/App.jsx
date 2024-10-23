@@ -26,9 +26,9 @@ function App() {
     return (
         <Router>
             <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center text-white">Loading...</div>}>
-                <div className="relative min-h-screen bg-custom-radial">
+                <div className="relative min-h-screen bg-custom-radial flex flex-col">
                     <NavBar/>
-                    <div className="relative z-10">
+                    <div className="flex-grow relative z-10">
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/about" element={<About/>}/>
