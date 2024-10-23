@@ -1,10 +1,12 @@
 .timeline-container {
+    position: relative;
     font-family: Arial, sans-serif;
     color: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    justify-items: center;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
@@ -13,25 +15,23 @@
 .timeline {
     width: 100%;
     max-width: 1000px;
+    margin: 75px auto;
 }
 
 .timeline-section-title {
     font-size: 1.5rem;
-    margin-bottom: 20px;
     text-align: center;
 }
 
 .timeline-events {
     position: relative;
-    height: 100px;
     list-style-type: none;
-    padding: 0;
+    padding: 50px 0 0 0;
     margin: 0;
 }
 
 .timeline-event {
     position: absolute;
-    height: 60px;
     animation: fadeIn 0.5s ease-out;
     transition: all 0.3s ease;
 }
@@ -49,7 +49,7 @@
 
 .event-content {
     position: relative;
-    padding-top: 5px;
+    padding-top: 15px;
 }
 
 .event-title {
@@ -75,10 +75,8 @@
 
 .timeline-years {
     position: relative;
-    height: 50px;
     list-style-type: none;
     padding: 0;
-    margin: 0;
     border-top: 1px solid #444;
     width: 100%;
     max-width: 1000px;
@@ -86,7 +84,7 @@
 
 .year-marker {
     position: absolute;
-    top: 10px;
+    top: 0;
     font-size: 0.8rem;
     transform: translateX(-50%);
 }

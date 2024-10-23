@@ -9,7 +9,7 @@ const TimelineEvent = ({startYear, endYear, title, subtitle, color, verticalPosi
     const subtitleTop = `${verticalPosition + 20}px`;
 
     return (
-        <li className="timeline-event" style={{width, left, top: `${verticalPosition * 15}px`}}>
+        <li className="timeline-event" style={{width, left, top: `${verticalPosition * 18}px`}}>
             <div className={`event-bar ${color}`}></div>
             <div className="event-content">
                 <h3 className="event-title" style={{top: titleTop}}>{title}</h3>
@@ -44,28 +44,10 @@ function Experience() {
     ];
 
     const education = [
-        {
-            startYear: 2015,
-            endYear: 2019,
-            title: "Lorem ipsum dolor",
-            subtitle: "Sit amet consectetur adipiscing",
-            color: "orange"
-        },
+        {startYear: 2015, endYear: 2019, title: "Lorem ipsum dolor", subtitle: "Sit amet consectetur adipiscing", color: "orange"},
         {startYear: 2016, endYear: 2020, title: "Ipsum dolor sit", subtitle: "Amet elit sed do eiusmod", color: "blue"},
-        {
-            startYear: 2020,
-            endYear: 2022,
-            title: "Dolor sit amet",
-            subtitle: "Consectetur adipiscing elit sed",
-            color: "red"
-        },
-        {
-            startYear: 2023,
-            endYear: 2025,
-            title: "Sit amet consectetur",
-            subtitle: "Lorem ipsum dolor adipiscing",
-            color: "teal"
-        },
+        {startYear: 2020, endYear: 2022, title: "Dolor sit amet", subtitle: "Consectetur adipiscing elit sed", color: "red"},
+        {startYear: 2023, endYear: 2025, title: "Sit amet consectetur", subtitle: "Lorem ipsum dolor adipiscing", color: "teal"},
     ];
 
     const years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
@@ -117,7 +99,6 @@ function Experience() {
                     ))}
                 </motion.ul>
             </div>
-
         </div>
     );
 }
