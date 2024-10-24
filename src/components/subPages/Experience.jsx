@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../style/experience.css';
 import { motion } from 'framer-motion';
 
@@ -6,22 +6,10 @@ const TimelineEvent = ({ startYear, endYear, title, subtitle, color, verticalPos
     const width = `${(endYear - startYear) * 10}%`;
     const left = `${(startYear - 2015) * 10}%`;
 
-    const handleMouseEnter = (e) => {
-        document.body.classList.add('overlay-active');
-        e.currentTarget.classList.add('selected');
-    };
-
-    const handleMouseLeave = (e) => {
-        document.body.classList.remove('overlay-active');
-        e.currentTarget.classList.remove('selected');
-    };
-
     return (
         <li
             className="timeline-event"
             style={{ width, left, top: `${verticalPosition * 26}px` }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
         >
             <div className={`event-bar ${color}`}>
                 <h3 className="event-title">{title}</h3>
@@ -59,16 +47,6 @@ function Experience() {
 
     const years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 
-    useEffect(() => {
-        const overlay = document.createElement('div');
-        overlay.className = 'overlay';
-        document.body.appendChild(overlay);
-
-        return () => {
-            document.body.removeChild(overlay);
-        };
-    }, []);
-
     return (
         <div className="timeline-container">
             <div className="timeline">
@@ -87,7 +65,11 @@ function Experience() {
                     transition={{ duration: 0.5 }}
                 >
                     {experience.map((event, index) => (
-                        <TimelineEvent key={index} {...event} verticalPosition={index} />
+                        <TimelineEvent
+                            key={index}
+                            {...event}
+                            verticalPosition={index}
+                        />
                     ))}
                 </motion.ul>
             </div>
@@ -114,7 +96,11 @@ function Experience() {
                     transition={{ duration: 0.5 }}
                 >
                     {education.map((event, index) => (
-                        <TimelineEvent key={index} {...event} verticalPosition={index} />
+                        <TimelineEvent
+                            key={index}
+                            {...event}
+                            verticalPosition={index}
+                        />
                     ))}
                 </motion.ul>
             </div>
