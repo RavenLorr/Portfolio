@@ -718,6 +718,10 @@ video {
   height: 15px;
 }
 
+.h-\[1px\] {
+  height: 1px;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -924,6 +928,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-gray-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-40 {
   --tw-bg-opacity: 0.4;
 }
@@ -1114,6 +1123,10 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
 }
 
 .ease-in-out {
