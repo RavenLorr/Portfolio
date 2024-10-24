@@ -176,6 +176,14 @@ function Experience() {
                         />
                     ))}
                 </motion.ul>
+                {/* Warning message */}
+                {isMobile && (
+                    <div className="absolute bottom-0 w-full text-center p-2">
+                        <p className="text-xs text-gray-400">
+                            This page is limited on mobile. Consider opening it on a computer to get detailed information about my experience.
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );
