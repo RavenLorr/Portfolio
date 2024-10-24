@@ -14,3 +14,25 @@
 .h-90p {
     height: 90%;
 }
+
+@layer utilities {
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .group:hover .event-bar {
+        height: 22px;
+    }
+
+    .group:hover ~ .group .event-bar {
+        opacity: 0.1;
+    }
+
+    .group:hover .bg-blue-500 { box-shadow: 0 0 15px rgba(59, 130, 246, 0.7); }
+    .group:hover .bg-green-500 { box-shadow: 0 0 15px rgba(34, 197, 94, 0.7); }
+    .group:hover .bg-purple-500 { box-shadow: 0 0 15px rgba(168, 85, 247, 0.7); }
+    .group:hover .bg-orange-500 { box-shadow: 0 0 15px rgba(249, 115, 22, 0.7); }
+    .group:hover .bg-red-500 { box-shadow: 0 0 15px rgba(239, 68, 68, 0.7); }
+    .group:hover .bg-teal-500 { box-shadow: 0 0 15px rgba(20, 184, 166, 0.7); }
+}
