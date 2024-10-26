@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import React from 'react';
 
 const TimelineEvent = React.memo(({ startYear, endYear, title, subtitle, color, verticalPosition, onHover, onLeave, isMobile, scalingFactor }) => {
     const width = `${(endYear - startYear) * 10}%`;

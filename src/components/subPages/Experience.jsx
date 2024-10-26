@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { Section, TimelineList, YearLine, MobileWarning } from '../../utils/responsiveComponents.jsx';
-import { useResponsiveAdjustments } from '../../hooks/useResponsiveAdjustments.js';
-import { experience, education, years } from '../../data/experienceData.js';
+
+import { experience, education, years } from '@/data/experienceData.js';
+import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments.js';
+import { Section, TimelineList, YearLine, MobileWarning } from '@/utils/responsiveComponents.jsx';
 
 function Experience() {
     const [selectedEndYear, setSelectedEndYear] = useState(null);

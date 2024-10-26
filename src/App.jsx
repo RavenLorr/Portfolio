@@ -1,9 +1,11 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import PointerParticles from './components/animation/PointerParticle.jsx';
 import LoadingScreen from './components/loading/LoadingScreen.jsx';
+import { NavBar, Home, About, Projects, Contact, Experience } from './utils/lazyComponents.js';
 import useComponentLoader from './utils/useComponentLoader.js';
-import { NavBar, Home, About, Projects, Contact, Experience, PointerParticles } from './utils/lazyComponents.js';
-import './app.css';
+import './App.css';
 
 /*
 * npx tailwindcss -i ./src/index.css -o ./src/style.css --watch
@@ -12,20 +14,37 @@ import './app.css';
 function App() {
     const { isLoading, progress } = useComponentLoader();
     const [initialLoad, setInitialLoad] = useState(true);
+    const [stylesLoaded, setStylesLoaded] = useState(false);
 
     useEffect(() => {
+        const styleSheets = document.styleSheets;
+        const checkStyles = () => {
+            if (styleSheets.length > 0) {
+                setStylesLoaded(true);
+            } else {
+                requestAnimationFrame(checkStyles);
+            }
+        };
+        checkStyles();
+
         if (!isLoading) {
             setInitialLoad(false);
         }
     }, [isLoading]);
 
-    if (isLoading && initialLoad) {
+    if ((isLoading && initialLoad) || !stylesLoaded) {
         return <LoadingScreen progress={progress} />;
     }
 
     return (
         <Router>
-            <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center text-white">Loading...</div>}>
+            <Suspense
+                fallback={
+                    <div className="fixed inset-0 flex items-center justify-center text-white bg-custom-radial">
+                        <div className="animate-pulse">Loading...</div>
+                    </div>
+                }
+            >
                 <div className="relative min-h-screen bg-custom-radial flex flex-col">
                     <NavBar/>
                     <div className="flex-grow relative z-10">

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { CanvasUtils } from '../../utils/canvasUtils.js';
+
+import { CanvasUtils } from '@/utils/canvasUtils.js';
 
 const FlowerShoots = () => {
     const canvasRef = useRef(null);

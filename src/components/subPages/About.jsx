@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
-import { ResponsiveUtils } from '../../utils/responsiveUtils.js';
-import { tabContent } from '../../data/aboutData.js';
+
+import { tabContent } from '@/data/aboutData.js';
+import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
 function About() {
     const [activeTab, setActiveTab] = useState('basics');

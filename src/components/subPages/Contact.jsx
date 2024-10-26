@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
-import ReCAPTCHA from "react-google-recaptcha";
 import DOMPurify from 'dompurify';
-import { ResponsiveUtils } from '../../utils/responsiveUtils.js';
+import React, { useState, useEffect, useRef } from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
+import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+
+import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;

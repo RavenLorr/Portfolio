@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CanvasUtils } from '../utils/canvasUtils.js';
+
+import { CanvasUtils } from '@/utils/canvasUtils.js';
 import './style/navbar.css';
 
 const navItems = [

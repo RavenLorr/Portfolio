@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ResponsiveUtils } from '../../utils/responsiveUtils.js';
-import { projects } from '../../data/projectsData.js';
+import React, { useState, useEffect } from 'react';
+
+import { projects } from '@/data/projectsData.js';
+import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
 const Projects = () => {
     const [activeTag, setActiveTag] = useState('All');
@@ -78,10 +79,10 @@ const Projects = () => {
                                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <div className="text-white text-center p-4">
                                         <h3 className="text-xl font-semibold mb-2" style={{ fontSize: `${1.5 * scale}rem` }}>{project.name}</h3>
-                                        <p className="text-sm mb-4" style={{ fontSize: `${1 * scale}rem` }}>{project.description}</p>
+                                        <p className="text-sm mb-4" style={{ fontSize: `${scale}rem` }}>{project.description}</p>
                                         <div className="flex justify-center space-x-4">
-                                            <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" style={{ fontSize: `${1 * scale}rem` }}>Show</a>
-                                            <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800" style={{ fontSize: `${1 * scale}rem` }}>Code</a>
+                                            <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" style={{ fontSize: `${scale}rem` }}>Show</a>
+                                            <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800" style={{ fontSize: `${scale}rem` }}>Code</a>
                                         </div>
                                     </div>
                                 </div>

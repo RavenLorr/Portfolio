@@ -1,5 +1,3 @@
-import { PointerParticle } from '../components/animation/PointerParticle.jsx';
-
 export class CanvasUtils {
     static setCanvasDimensions(canvas) {
         canvas.width = window.innerWidth;
@@ -7,10 +5,10 @@ export class CanvasUtils {
         return this.getResponsiveAdjustments(canvas);
     }
 
-    static createParticles(count, speed, spread, ctx, pointer, scalingFactor) {
+    static createParticles(count, speed, spread, ctx, pointer, scalingFactor, ParticleClass) {
         const particles = [];
         for (let i = 0; i < count; i++) {
-            particles.push(new PointerParticle(spread, speed, { ctx, pointer }, scalingFactor));
+            particles.push(new ParticleClass(spread, speed, { ctx, pointer }, scalingFactor));
         }
         return particles;
     }
@@ -51,7 +49,7 @@ export class CanvasUtils {
         const ringCenterX = canvas.width / 2;
         const ringCenterY = canvas.height / 2;
 
-        console.log('canvas.width: '+canvas.width+' canvas.height: '+canvas.height+' widthScalingFactor: '+widthScalingFactor+' heightScalingFactor: '+heightScalingFactor+' scalingFactor: '+scalingFactor);
+        //console.log('canvas.width: '+canvas.width+' canvas.height: '+canvas.height+' widthScalingFactor: '+widthScalingFactor+' heightScalingFactor: '+heightScalingFactor+' scalingFactor: '+scalingFactor);
         return { baseRadius, ringCenterX, ringCenterY, scalingFactor };
     }
 
@@ -85,44 +83,4 @@ export class CanvasUtils {
             ));
         }
     }
-
-    static Particle = class {
-        constructor(x, y, size, speed, direction, life, inward, centerX, centerY) {
-            this.x = x;
-            this.y = y;
-            this.size = size;
-            this.speed = speed;
-            this.direction = direction;
-            this.life = life;
-            this.maxLife = life;
-            this.inward = inward;
-            this.centerX = centerX;
-            this.centerY = centerY;
-        }
-
-        update(width, height) {
-            this.x += this.speed * Math.cos(this.direction);
-            this.y += this.speed * Math.sin(this.direction);
-            this.life -= 1;
-
-            if (this.inward) {
-                const distanceToCenter = Math.sqrt(Math.pow(this.x - this.centerX, 2) + Math.pow(this.y - this.centerY, 2));
-                if (distanceToCenter < 50) {
-                    this.life = Math.min(this.life, distanceToCenter);
-                }
-            } else {
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-            }
-        }
-
-        draw(ctx) {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.life / this.maxLife * 0.5})`;
-            ctx.fill();
-        }
-    };
 }
