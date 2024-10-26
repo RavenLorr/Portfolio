@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoadingScreen from './components/loading/LoadingScreen';
-import useComponentLoader from './utils/useComponentLoader';
-import { NavBar, Home, About, Projects, Contact, Experience, PointerParticles } from './utils/lazyComponents';
+import LoadingScreen from './components/loading/LoadingScreen.jsx';
+import useComponentLoader from './utils/useComponentLoader.js';
+import { NavBar, Home, About, Projects, Contact, Experience, PointerParticles } from './utils/lazyComponents.js';
 import './app.css';
 
 /*

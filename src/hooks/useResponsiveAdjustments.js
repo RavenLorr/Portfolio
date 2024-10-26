@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { CanvasUtils } from '../utils/canvasUtils';
+import { CanvasUtils } from '../utils/canvasUtils.js';
 
 export const useResponsiveAdjustments = () => {
     const [responsiveAdjustments, setResponsiveAdjustments] = useState(null);

@@ -1,4 +1,4 @@
-import { MultiWaveRing, FlowerShoots } from '../utils/lazyComponents';
+import { MultiWaveRing, FlowerShoots } from '../utils/lazyComponents.js';
 
 function Home() {
     return (

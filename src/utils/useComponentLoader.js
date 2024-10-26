@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import * as LazyComponents from '../utils/lazyComponents';
+import * as LazyComponents from '../utils/lazyComponents.js';
 
 const useComponentLoader = () => {
     const [isLoading, setIsLoading] = useState(true);

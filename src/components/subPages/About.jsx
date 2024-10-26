@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaUser, FaMapMarkerAlt, FaLanguage, FaRunning, FaCamera, FaPencilAlt, FaFlag } from 'react-icons/fa';
-import { ResponsiveUtils } from '../../utils/responsiveUtils';
+import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
+import { ResponsiveUtils } from '../../utils/responsiveUtils.js';
+import { tabContent } from '../../data/aboutData.js';
 
 function About() {
     const [activeTab, setActiveTab] = useState('basics');
@@ -18,34 +19,6 @@ function About() {
 
         return () => window.removeEventListener('resize', updateScale);
     }, []);
-
-    const tabContent = {
-        basics: {
-            icon: <FaUser />,
-            title: "The Basics",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum."
-        },
-        sport: {
-            icon: <FaRunning />,
-            title: "Sport",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris."
-        },
-        photography: {
-            icon: <FaCamera />,
-            title: "Photography",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non lorem diam."
-        },
-        drawing: {
-            icon: <FaPencilAlt />,
-            title: "Drawing",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem."
-        },
-        goals: {
-            icon: <FaFlag />,
-            title: "Goals",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis."
-        }
-    };
 
     return (
         <div className="relative min-h-screen flex justify-center items-center" style={{ fontSize: 'var(--root-font-size, 16px)' }}>
@@ -69,7 +42,7 @@ function About() {
                             whileTap={{scale: 0.95}}
                             style={{ fontSize: `${1.25 * scale}rem` }}
                         >
-                            {tabContent[tab].icon}
+                            {React.createElement(tabContent[tab].icon)}
                             <span className="ml-2">{tabContent[tab].title}</span>
                         </motion.button>
                     ))}
@@ -82,19 +55,22 @@ function About() {
                     transition={{duration: 0.3}}
                 >
                     <div className="w-full">
-                        <h2 className="text-3xl font-bold mb-4 flex items-center justify-center" style={{ fontSize: `${2 * scale}rem` }}>
-                            {tabContent[activeTab].icon}
+                        <h2 className="text-3xl font-bold mb-4 flex items-center justify-center" style={{fontSize: `${2 * scale}rem`}}>
+                            {React.createElement(tabContent[activeTab].icon)}
                             <span className="ml-2">{tabContent[activeTab].title}</span>
                         </h2>
-                        <p className="text-lg text-center" style={{ fontSize: `${1.25 * scale}rem` }}>{tabContent[activeTab].content}</p>
+                        <p className="text-lg text-center"
+                           style={{fontSize: `${1.25 * scale}rem`}}>{tabContent[activeTab].content}</p>
 
                         {activeTab === 'basics' && (
                             <div className="mt-4 grid grid-cols-2 gap-4">
-                                <div className="flex items-center justify-center" style={{ fontSize: `${1.25 * scale}rem` }}>
+                                <div className="flex items-center justify-center"
+                                     style={{fontSize: `${1.25 * scale}rem`}}>
                                     <FaMapMarkerAlt className="mr-2"/>
                                     <span>Location: Your City, Country</span>
                                 </div>
-                                <div className="flex items-center justify-center" style={{ fontSize: `${1.25 * scale}rem` }}>
+                                <div className="flex items-center justify-center"
+                                     style={{fontSize: `${1.25 * scale}rem`}}>
                                     <FaLanguage className="mr-2"/>
                                     <span>Languages: English, French</span>
                                 </div>

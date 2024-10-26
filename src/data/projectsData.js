@@ -3,7 +3,7 @@ export const projects = [
         id: 1,
         name: "Lorem Ipsum",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur interdum.",
-        image: "https://source.unsplash.com/random/800x600?sig=1",
+        image: "",
         tags: ["Lorem", "Ipsum", "Dolor", "Sit"],
         liveLink: "https://example.com/lorem-ipsum-1",
         codeLink: "https://github.com/example/lorem-ipsum-1"
@@ -12,7 +12,7 @@ export const projects = [
         id: 2,
         name: "Dolor Sit Amet",
         description: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-        image: "https://source.unsplash.com/random/800x600?sig=2",
+        image: "",
         tags: ["Consectetur", "Adipiscing", "Elit"],
         liveLink: "https://example.com/dolor-sit-amet",
         codeLink: "https://github.com/example/dolor-sit-amet"
@@ -21,7 +21,7 @@ export const projects = [
         id: 3,
         name: "Consectetur Adipiscing",
         description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "https://source.unsplash.com/random/800x600?sig=3",
+        image: "",
         tags: ["Sed", "Eiusmod", "Tempor", "Incididunt"],
         liveLink: "https://example.com/consectetur-adipiscing",
         codeLink: "https://github.com/example/consectetur-adipiscing"
@@ -30,7 +30,7 @@ export const projects = [
         id: 4,
         name: "Sed Do Eiusmod",
         description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "https://source.unsplash.com/random/800x600?sig=4",
+        image: "",
         tags: ["Ut", "Labore", "Dolore"],
         liveLink: "https://example.com/sed-do-eiusmod",
         codeLink: "https://github.com/example/sed-do-eiusmod"
@@ -39,7 +39,7 @@ export const projects = [
         id: 5,
         name: "Ut Enim Ad Minim",
         description: "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        image: "https://source.unsplash.com/random/800x600?sig=5",
+        image: "",
         tags: ["Duis", "Aute", "Irure"],
         liveLink: "https://example.com/ut-enim-ad-minim",
         codeLink: "https://github.com/example/ut-enim-ad-minim"
@@ -48,7 +48,7 @@ export const projects = [
         id: 6,
         name: "Duis Aute Irure",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        image: "https://source.unsplash.com/random/800x600?sig=6",
+        image: "",
         tags: ["Excepteur", "Sint", "Occaecat"],
         liveLink: "https://example.com/duis-aute-irure",
         codeLink: "https://github.com/example/duis-aute-irure"
@@ -57,7 +57,7 @@ export const projects = [
         id: 7,
         name: "Excepteur Sint",
         description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        image: "https://source.unsplash.com/random/800x600?sig=7",
+        image: "",
         tags: ["Quis", "Nostrud", "Exercitation"],
         liveLink: "https://example.com/excepteur-sint",
         codeLink: "https://github.com/example/excepteur-sint"
@@ -66,7 +66,7 @@ export const projects = [
         id: 8,
         name: "Quis Nostrud",
         description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "https://source.unsplash.com/random/800x600?sig=8",
+        image: "",
         tags: ["Ullamco", "Laboris", "Nisi"],
         liveLink: "https://example.com/quis-nostrud",
         codeLink: "https://github.com/example/quis-nostrud"
@@ -75,7 +75,7 @@ export const projects = [
         id: 9,
         name: "Ullamco Laboris",
         description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "https://source.unsplash.com/random/800x600?sig=9",
+        image: "",
         tags: ["Aliquip", "Commodo", "Consequat"],
         liveLink: "https://example.com/ullamco-laboris",
         codeLink: "https://github.com/example/ullamco-laboris"
@@ -84,7 +84,7 @@ export const projects = [
         id: 10,
         name: "Aliquip Ex Ea",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        image: "https://source.unsplash.com/random/800x600?sig=10",
+        image: "",
         tags: ["Reprehenderit", "Voluptate", "Velit", "Esse"],
         liveLink: "https://example.com/aliquip-ex-ea",
         codeLink: "https://github.com/example/aliquip-ex-ea"
@@ -93,7 +93,7 @@ export const projects = [
         id: 11,
         name: "Reprehenderit In",
         description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        image: "https://source.unsplash.com/random/800x600?sig=11",
+        image: "",
         tags: ["Cillum", "Dolore", "Fugiat", "Pariatur"],
         liveLink: "https://example.com/reprehenderit-in",
         codeLink: "https://github.com/example/reprehenderit-in"

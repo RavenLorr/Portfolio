@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ResponsiveUtils } from '../../utils/responsiveUtils';
+import { ResponsiveUtils } from '../../utils/responsiveUtils.js';
 import { projects } from '../../data/projectsData.js';
 
 const Projects = () => {
