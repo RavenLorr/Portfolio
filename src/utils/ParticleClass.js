@@ -1,4 +1,4 @@
-export class PointerParticle {
+export class Particle {
   constructor(x, y, size, speed, direction, life, inward, centerX, centerY) {
     this.x = x;
     this.y = y;

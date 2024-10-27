@@ -1,6 +1,7 @@
 import {useEffect, useRef} from 'react';
 
 import {CanvasUtils} from '@/utils/canvasUtils.js';
+import {Particle} from '@/utils/ParticleClass.js';
 
 function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
     const animationRef = useRef(null);
@@ -82,7 +83,7 @@ function MultiWaveRing({ canvasId, text = "RavenLorr" }) {
                 const inward = Math.random() < 0.3;
                 const direction = point.angle + (inward ? Math.PI : 0) + (Math.random() - 0.5) * Math.PI * 0.5;
                 const life = (inward ? 100 : 150) * scalingFactor;
-                particlesRef.current.push(new CanvasUtils.Particle(point.x, point.y, size, speed, direction, life, inward, ringCenterX, ringCenterY));
+                particlesRef.current.push(new Particle(point.x, point.y, size, speed, direction, life, inward, ringCenterX, ringCenterY));
             }
         }
 

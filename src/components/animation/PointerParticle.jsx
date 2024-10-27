@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import { CanvasUtils } from '@/utils/canvasUtils.js';
-import { PointerParticle } from '@/utils/PointerParticleClass.js';
+import { Particle } from '@/utils/ParticleClass.js';
 
 const PointerParticles = () => {
     const canvasRef = useRef(null);
@@ -23,14 +23,14 @@ const PointerParticles = () => {
         const handlePointerMove = (event) => {
             setPointerValues(event);
             const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
-            const particles = CanvasUtils.createParticles(2.5, CanvasUtils.getPointerVelocity(event), 1, ctx, pointerRef.current, scalingFactor, PointerParticle);
+            const particles = CanvasUtils.createParticles(2.5, CanvasUtils.getPointerVelocity(event), 1, ctx, pointerRef.current, scalingFactor, Particle);
             particlesRef.current.push(...particles);
         };
 
         const handleClick = (event) => {
             setPointerValues(event);
             const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
-            const particles = CanvasUtils.createParticles(10, Math.random() + 1, Math.random() + 50, ctx, pointerRef.current, scalingFactor, PointerParticle);
+            const particles = CanvasUtils.createParticles(10, Math.random() + 1, Math.random() + 50, ctx, pointerRef.current, scalingFactor, Particle);
             particlesRef.current.push(...particles);
         };
 
