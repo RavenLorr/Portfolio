@@ -12,7 +12,8 @@ function About() {
     useEffect(() => {
         const updateScale = () => {
             ResponsiveUtils.updateRootFontSize();
-            setScale(ResponsiveUtils.getScalingFactor().scale);
+            const { scale } = ResponsiveUtils.getScalingFactor();
+            setScale(scale);
         };
 
         updateScale();
