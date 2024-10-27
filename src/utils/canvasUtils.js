@@ -8,15 +8,14 @@ export class CanvasUtils {
     static createParticles(count, speed, spread, ctx, pointer, scalingFactor, ParticleClass) {
         const particles = [];
         for (let i = 0; i < count; i++) {
-            particles.push(new ParticleClass(spread, speed, { ctx, pointer }, scalingFactor));
+            particles.push(ParticleClass.createPointerParticle(spread, speed, { ctx, pointer }, scalingFactor));
         }
         return particles;
     }
 
     static handleParticles(particles) {
         for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            if (particles[i].size <= 0.1) {
+            if (!particles[i].update()) {
                 particles.splice(i, 1);
                 i--;
             }
