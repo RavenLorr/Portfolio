@@ -1,69 +1,74 @@
 import React, { useState, useCallback } from 'react';
 
+import PageBuilder from '@/components/PageBuilder';
 import { useLanguage } from '@/context/LanguageContext';
 import { experienceData } from '@/data/experienceData';
 import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
 import { Section, TimelineList, YearLine, MobileWarning } from '@/utils/responsiveComponents';
 
-
 function Experience() {
-    const { language } = useLanguage();
-    const [selectedEndYear, setSelectedEndYear] = useState(null);
-    const responsiveAdjustments = useResponsiveAdjustments();
+  const { language } = useLanguage();
+  const [selectedEndYear, setSelectedEndYear] = useState(null);
+  const responsiveAdjustments = useResponsiveAdjustments();
 
-    const handleEventHover = useCallback((endYear) => {
-        setSelectedEndYear(endYear);
-    }, []);
+  const handleEventHover = useCallback((endYear) => {
+    setSelectedEndYear(endYear);
+  }, []);
 
-    const handleEventLeave = useCallback(() => {
-        setSelectedEndYear(null);
-    }, []);
+  const handleEventLeave = useCallback(() => {
+    setSelectedEndYear(null);
+  }, []);
 
-    if (!responsiveAdjustments) return null;
+  if (!responsiveAdjustments) return null;
 
-    const { isMobile, scalingFactor } = responsiveAdjustments;
-    const data = experienceData[language];
+  const { isMobile, scalingFactor } = responsiveAdjustments;
+  const data = experienceData[language];
 
-    return (
-        <div className="relative font-sans text-white min-h-screen flex flex-col justify-center items-center p-2 sm:p-5 box-border">
-            <Section
-                title={data.experienceTitle}
-                isMobile={isMobile}
-                scalingFactor={scalingFactor}
-            >
-                <TimelineList
-                    events={data.experience}
-                    onHover={handleEventHover}
-                    onLeave={handleEventLeave}
-                    isMobile={isMobile}
-                    scalingFactor={scalingFactor}
-                />
-            </Section>
+  const content = () => (
+    <div className="relative font-sans text-white min-h-screen flex flex-col justify-center items-center p-2 sm:p-5 box-border">
+      <Section
+        title={data.experienceTitle}
+        isMobile={isMobile}
+        scalingFactor={scalingFactor}
+      >
+        <TimelineList
+          events={data.experience}
+          onHover={handleEventHover}
+          onLeave={handleEventLeave}
+          isMobile={isMobile}
+          scalingFactor={scalingFactor}
+        />
+      </Section>
 
-            <YearLine
-                selectedEndYear={selectedEndYear}
-                years={experienceData.years}
-                isMobile={isMobile}
-                scalingFactor={scalingFactor}
-            />
+      <YearLine
+        selectedEndYear={selectedEndYear}
+        years={experienceData.years}
+        isMobile={isMobile}
+        scalingFactor={scalingFactor}
+      />
 
-            <Section
-                title="Education"
-                isMobile={isMobile}
-                scalingFactor={scalingFactor}
-            >
-                <TimelineList
-                    events={data.education}
-                    onHover={handleEventHover}
-                    onLeave={handleEventLeave}
-                    isMobile={isMobile}
-                    scalingFactor={scalingFactor}
-                />
-            </Section>
+      <Section
+        title="Education"
+        isMobile={isMobile}
+        scalingFactor={scalingFactor}
+      >
+        <TimelineList
+          events={data.education}
+          onHover={handleEventHover}
+          onLeave={handleEventLeave}
+          isMobile={isMobile}
+          scalingFactor={scalingFactor}
+        />
+      </Section>
 
-            {isMobile && <MobileWarning />}
-        </div>
-    );
+      {isMobile && <MobileWarning />}
+    </div>
+  );
+
+  const pageBuilder = new PageBuilder();
+  pageBuilder.setTitle(data.title);
+  pageBuilder.setContent(content);
+  return pageBuilder.build();
 }
 
 export default Experience;
