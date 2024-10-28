@@ -32,7 +32,7 @@ const Projects = () => {
     }, [activeTag]);
 
     return (
-      <div className="relative min-h-screen flex justify-center items-center"
+      <div className="relative min-h-screen flex justify-center"
            style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${80 * scale}px` }}>
           <div className="w-4/5 max-w-6xl">
               <motion.h1

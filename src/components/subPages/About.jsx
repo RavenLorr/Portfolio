@@ -23,7 +23,7 @@ function About() {
     }, []);
 
     return (
-        <div className="relative min-h-screen flex justify-center items-center" style={{ fontSize: 'var(--root-font-size, 16px)' }}>
+        <div className="relative min-h-screen flex justify-center" style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${80 * scale}px` }}>
             <div className="w-4/5 max-w-6xl">
                 <motion.h1
                     className="text-6xl font-space-game font-bold text-center mb-12 text-white"
