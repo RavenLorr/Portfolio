@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import PointerParticles from './components/animation/PointerParticle.jsx';
 import LoadingScreen from './components/loading/LoadingScreen.jsx';
 import { NavBar, Home, About, Projects, Contact, Experience } from './utils/lazyComponents.js';
+import { PointerParticles } from './utils/lazyComponentsAnimations.js';
 import useComponentLoader from './utils/useComponentLoader.js';
 import './App.css';
 
