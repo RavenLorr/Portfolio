@@ -1,7 +1,7 @@
 import emailjs from '@emailjs/browser';
 import DOMPurify from 'dompurify';
 import React, { useState, useEffect, useRef } from 'react';
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 
 import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
@@ -13,11 +13,15 @@ const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const MAX_MESSAGE_LENGTH = 5000;
 
+function generateNonce() {
+  return crypto.randomUUID();
+}
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
   const [captchaToken, setCaptchaToken] = useState(null);
   const [emailError, setEmailError] = useState('');
@@ -31,6 +35,18 @@ function Contact() {
   const recaptchaRef = useRef(null);
 
   useEffect(() => {
+    let recaptchaScript = null;
+
+    const loadRecaptcha = () => {
+      recaptchaScript = document.createElement('script');
+      recaptchaScript.src = 'https://www.google.com/recaptcha/api.js';
+      recaptchaScript.async = true;
+      recaptchaScript.defer = true;
+      const nonce = generateNonce();
+      recaptchaScript.setAttribute('nonce', nonce);
+      document.head.appendChild(recaptchaScript);
+    };
+
     const updateResponsiveness = () => {
       ResponsiveUtils.updateRootFontSize();
       const { scale } = ResponsiveUtils.getScalingFactor();
@@ -39,18 +55,23 @@ function Contact() {
       setIsMobile(window.innerWidth < 768);
     };
 
+    loadRecaptcha();
     updateResponsiveness();
     window.addEventListener('resize', updateResponsiveness);
 
-    return () => window.removeEventListener('resize', updateResponsiveness);
+    return () => {
+      window.removeEventListener('resize', updateResponsiveness);
+      if (recaptchaScript && recaptchaScript.parentNode) {
+        recaptchaScript.parentNode.removeChild(recaptchaScript);
+      }
+    };
   }, []);
 
-
-  const sanitizeInput = (input) => {
+  const sanitizeInput = input => {
     return DOMPurify.sanitize(input, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     if (name === 'message' && value.length > MAX_MESSAGE_LENGTH) {
       return;
@@ -63,7 +84,7 @@ function Contact() {
     }
   };
 
-  const validateEmail = (email) => {
+  const validateEmail = email => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!re.test(email)) {
       setEmailError('Please enter a valid email address');
@@ -72,11 +93,11 @@ function Contact() {
     }
   };
 
-  const handleCaptchaChange = (token) => {
+  const handleCaptchaChange = token => {
     setCaptchaToken(token);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     if (emailError) {
@@ -95,28 +116,52 @@ function Contact() {
       message: sanitizeInput(formData.message),
     };
 
-    emailjs.send(serviceId, templateId, { ...sanitizedData, 'g-recaptcha-response': captchaToken }, publicKey)
-      .then(() => {
-        alert('Message sent successfully!');
-        setFormData({ name: '', email: '', message: '' });
-        setCaptchaToken(null);
-        recaptchaRef.current.reset();
-      }, () => {
-        alert('Failed to send the message. Please try again.');
-      });
+    emailjs
+      .send(
+        serviceId,
+        templateId,
+        { ...sanitizedData, 'g-recaptcha-response': captchaToken },
+        publicKey
+      )
+      .then(
+        () => {
+          alert('Message sent successfully!');
+          setFormData({ name: '', email: '', message: '' });
+          setCaptchaToken(null);
+          recaptchaRef.current.reset();
+        },
+        () => {
+          alert('Failed to send the message. Please try again.');
+        }
+      );
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center items-center"
-         style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${40 * scalingFactor}px` }}>
-      <div ref={formRef}
-           className={`w-full ${isMobile ? 'max-w-sm' : 'max-w-6xl'} bg-black bg-opacity-40 rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-6 mb-8`}
-           style={{ width: isMobile ? '100%' : `${Math.min(80, 100 * scalingFactor)}%` }}>
-        <h1 className="text-4xl font-bold mb-6 text-white text-center" style={{ fontSize: `${32 * scalingFactor}px` }}>Contact Me</h1>
+    <div
+      className="relative min-h-screen flex flex-col justify-center items-center"
+      style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${40 * scalingFactor}px`, }}
+    >
+      <div
+        ref={formRef}
+        className={`w-full ${isMobile ? 'max-w-sm' : 'max-w-6xl'} bg-black bg-opacity-40 rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-6 mb-8`}
+        style={{ width: isMobile ? '100%' : `${Math.min(80, 100 * scalingFactor)}%` }}
+      >
+        <h1
+          className="text-4xl font-bold mb-6 text-white text-center"
+          style={{ fontSize: `${32 * scalingFactor}px` }}
+        >
+          Contact Me
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block mb-1 text-white text-xl" style={{ fontSize: `${20 * scalingFactor}px` }}>Name</label>
+            <label
+              htmlFor="name"
+              className="block mb-1 text-white text-xl"
+              style={{ fontSize: `${20 * scalingFactor}px` }}
+            >
+              Name
+            </label>
             <input
               type="text"
               id="name"
@@ -130,7 +175,13 @@ function Contact() {
             />
           </div>
           <div>
-            <label htmlFor="email" className="block mb-1 text-white text-xl" style={{ fontSize: `${20 * scalingFactor}px` }}>Email</label>
+            <label
+              htmlFor="email"
+              className="block mb-1 text-white text-xl"
+              style={{ fontSize: `${20 * scalingFactor}px` }}
+            >
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -142,10 +193,23 @@ function Contact() {
               style={{ fontSize: `${20 * scalingFactor}px`, padding: `${8 * scalingFactor}px` }}
               maxLength="100"
             />
-            {emailError && <p className="text-red-500 text-base mt-1" style={{ fontSize: `${16 * scalingFactor}px` }}>{emailError}</p>}
+            {emailError && (
+              <p
+                className="text-red-500 text-base mt-1"
+                style={{ fontSize: `${16 * scalingFactor}px` }}
+              >
+                {emailError}
+              </p>
+            )}
           </div>
           <div>
-            <label htmlFor="message" className="block mb-1 text-white text-xl" style={{ fontSize: `${20 * scalingFactor}px` }}>Message</label>
+            <label
+              htmlFor="message"
+              className="block mb-1 text-white text-xl"
+              style={{ fontSize: `${20 * scalingFactor}px` }}
+            >
+              Message
+            </label>
             <textarea
               id="message"
               name="message"
@@ -157,30 +221,40 @@ function Contact() {
                 minHeight: `${160 * scalingFactor}px`,
                 maxHeight: `${320 * scalingFactor}px`,
                 fontSize: `${20 * scalingFactor}px`,
-                padding: `${8 * scalingFactor}px`
+                padding: `${8 * scalingFactor}px`,
               }}
               maxLength={MAX_MESSAGE_LENGTH}
             ></textarea>
-            <div className="text-right text-base text-gray-400" style={{ fontSize: `${16 * scalingFactor}px` }}>
+            <div
+              className="text-right text-base text-gray-400"
+              style={{ fontSize: `${16 * scalingFactor}px` }}
+            >
               {formData.message.length}/{MAX_MESSAGE_LENGTH}
             </div>
           </div>
           <div className="flex flex-col items-center space-y-4">
-            <div className="flex justify-center" style={{
-              transform: `scale(${captchaScale})`,
-              transformOrigin: 'center',
-              marginBottom: `${20 * (captchaScale - 1)}px`
-            }}>
+            <div
+              className="flex justify-center"
+              style={{
+                transform: `scale(${captchaScale})`,
+                transformOrigin: 'center',
+                marginBottom: `${20 * (captchaScale - 1)}px`,
+              }}
+            >
               <ReCAPTCHA
                 ref={recaptchaRef}
                 sitekey={recaptchaSiteKey}
                 onChange={handleCaptchaChange}
                 size="normal"
+                theme="light"
+                hl="en"
               />
             </div>
-            <button type="submit"
-                    className="w-full p-3 bg-blue-600 hover:bg-blue-700 rounded text-white text-xl"
-                    style={{ fontSize: `${20 * scalingFactor}px`, padding: `${12 * scalingFactor}px` }}>
+            <button
+              type="submit"
+              className="w-full p-3 bg-blue-600 hover:bg-blue-700 rounded text-white text-xl"
+              style={{ fontSize: `${20 * scalingFactor}px`, padding: `${12 * scalingFactor}px` }}
+            >
               Send Message
             </button>
           </div>
@@ -188,16 +262,46 @@ function Contact() {
       </div>
 
       <div ref={connectRef} className="text-center text-white mt-4">
-        <h2 className="text-3xl font-bold mb-4" style={{ fontSize: `${30 * scalingFactor}px` }}>Connect with me</h2>
+        <h2 className="text-3xl font-bold mb-4" style={{ fontSize: `${30 * scalingFactor}px` }}>
+          Connect with me
+        </h2>
         <div className="flex justify-center space-x-6">
-          <a href="https://discord.gg/your-discord" target="_blank" rel="noopener noreferrer"
-             className="text-5xl hover:text-blue-400" style={{ fontSize: `${48 * scalingFactor}px` }}><FaDiscord /></a>
-          <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer"
-             className="text-5xl hover:text-blue-600" style={{ fontSize: `${48 * scalingFactor}px` }}><FaLinkedin /></a>
-          <a href="https://github.com/RavenLorr" target="_blank" rel="noopener noreferrer"
-             className="text-5xl hover:text-gray-400" style={{ fontSize: `${48 * scalingFactor}px` }}><FaGithub /></a>
-          <a href="https://www.instagram.com/your-instagram" target="_blank" rel="noopener noreferrer"
-             className="text-5xl hover:text-pink-500" style={{ fontSize: `${48 * scalingFactor}px` }}><FaInstagram /></a>
+          <a
+            href="https://discord.gg/your-discord"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-5xl hover:text-blue-400"
+            style={{ fontSize: `${48 * scalingFactor}px` }}
+          >
+            <FaDiscord />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/your-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-5xl hover:text-blue-600"
+            style={{ fontSize: `${48 * scalingFactor}px` }}
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href="https://github.com/RavenLorr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-5xl hover:text-gray-400"
+            style={{ fontSize: `${48 * scalingFactor}px` }}
+          >
+            <FaGithub />
+          </a>
+          <a
+            href="https://www.instagram.com/your-instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-5xl hover:text-pink-500"
+            style={{ fontSize: `${48 * scalingFactor}px` }}
+          >
+            <FaInstagram />
+          </a>
         </div>
       </div>
     </div>
