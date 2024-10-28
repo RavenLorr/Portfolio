@@ -3,8 +3,9 @@ import DOMPurify from 'dompurify';
 import React, { useState, useEffect, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-import { useLanguage} from '@/context/LanguageContext.jsx';
+import { useLanguage } from '@/context/LanguageContext.jsx';
 import { contactData } from '@/data/contactData.js';
 import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
@@ -146,17 +147,23 @@ function Contact() {
       className="relative min-h-screen flex flex-col justify-center items-center"
       style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${40 * scalingFactor}px`, }}
     >
-      <div
+      <motion.div
         ref={formRef}
         className={`w-full ${isMobile ? 'max-w-sm' : 'max-w-6xl'} bg-black bg-opacity-40 rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-6 mb-8`}
         style={{ width: isMobile ? '100%' : `${Math.min(80, 100 * scalingFactor)}%` }}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <h1
+        <motion.h1
           className="text-4xl font-bold mb-6 text-white text-center"
           style={{ fontSize: `${32 * scalingFactor}px` }}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
           {data.title}
-        </h1>
+        </motion.h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -264,9 +271,15 @@ function Contact() {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
 
-      <div ref={connectRef} className="text-center text-white mt-4">
+      <motion.div
+        ref={connectRef}
+        className="text-center text-white mt-4"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <h2 className="text-3xl font-bold mb-4" style={{ fontSize: `${30 * scalingFactor}px` }}>
           {data.connectTitle}
         </h2>
@@ -308,7 +321,7 @@ function Contact() {
             <FaInstagram />
           </a>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
