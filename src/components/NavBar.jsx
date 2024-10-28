@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CanvasUtils } from '@/utils/canvasUtils.js';
+
+import { useLanguage } from '@/context/LanguageContext.jsx';
+
 import './style/navbar.css';
 
 const navItems = [
@@ -14,16 +17,17 @@ const navItems = [
 
 function NavItem({ text, path, scalingFactor }) {
     return (
-        <li style={{ margin: `${10 * scalingFactor}px` }}>
-            <Link to={path} className="font-space-game text-white hover:underline transition duration-300" style={{ fontSize: `${22 * scalingFactor}px` }}>
-                {text}
-            </Link>
-        </li>
+      <li style={{ margin: `${10 * scalingFactor}px` }}>
+          <Link to={path} className="font-space-game text-white hover:underline transition duration-300" style={{ fontSize: `${22 * scalingFactor}px` }}>
+              {text}
+          </Link>
+      </li>
     );
 }
 
 function NavBar() {
     const [scalingFactor, setScalingFactor] = useState(1);
+    const { language, toggleLanguage } = useLanguage();
 
     const updateScalingFactor = () => {
         const canvas = document.createElement('canvas');
@@ -43,13 +47,16 @@ function NavBar() {
     }, []);
 
     return (
-        <nav className="fixed top-0 right-0 w-full p-4 flex items-center bg-custom-radial bg-custom-radial-opacity z-50" style={{ height: `${50 * scalingFactor}px` }}>
-            <ul className="flex ml-auto space-x-4">
-                {navItems.map((item) => (
-                    <NavItem key={item.text} {...item} scalingFactor={scalingFactor} />
-                ))}
-            </ul>
-        </nav>
+      <nav className="fixed top-0 right-0 w-full p-4 flex items-center bg-custom-radial bg-custom-radial-opacity z-50" style={{ height: `${50 * scalingFactor}px` }}>
+          <button onClick={toggleLanguage} className="text-white mr-auto" style={{ fontSize: `${22 * scalingFactor}px` }}>
+              {language === 'en' ? 'FR' : 'EN'}
+          </button>
+          <ul className="flex ml-auto space-x-4">
+              {navItems.map((item) => (
+                <NavItem key={item.text} {...item} scalingFactor={scalingFactor} />
+              ))}
+          </ul>
+      </nav>
     );
 }
 
