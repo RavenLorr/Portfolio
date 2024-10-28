@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 
+import { useLanguage} from '@/context/LanguageContext.jsx';
+import { contactData } from '@/data/contactData.js';
 import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -14,10 +16,13 @@ const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const MAX_MESSAGE_LENGTH = 5000;
 
 function generateNonce() {
+  // eslint-disable-next-line no-undef
   return crypto.randomUUID();
 }
 
 function Contact() {
+  const { language } = useLanguage();
+  const data = contactData[language];
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -87,7 +92,7 @@ function Contact() {
   const validateEmail = email => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!re.test(email)) {
-      setEmailError('Please enter a valid email address');
+      setEmailError(data.emailError);
     } else {
       setEmailError('');
     }
@@ -101,12 +106,12 @@ function Contact() {
     e.preventDefault();
 
     if (emailError) {
-      alert('Please correct the email address before sending');
+      alert(data.emailAlert);
       return;
     }
 
     if (!captchaToken) {
-      alert('Please complete the CAPTCHA');
+      alert(data.captchaAlert);
       return;
     }
 
@@ -125,13 +130,13 @@ function Contact() {
       )
       .then(
         () => {
-          alert('Message sent successfully!');
+          alert(data.successMessage);
           setFormData({ name: '', email: '', message: '' });
           setCaptchaToken(null);
           recaptchaRef.current.reset();
         },
         () => {
-          alert('Failed to send the message. Please try again.');
+          alert(data.errorMessage);
         }
       );
   };
@@ -150,7 +155,7 @@ function Contact() {
           className="text-4xl font-bold mb-6 text-white text-center"
           style={{ fontSize: `${32 * scalingFactor}px` }}
         >
-          Contact Me
+          {data.title}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -160,7 +165,7 @@ function Contact() {
               className="block mb-1 text-white text-xl"
               style={{ fontSize: `${20 * scalingFactor}px` }}
             >
-              Name
+              {data.nameLabel}
             </label>
             <input
               type="text"
@@ -180,7 +185,7 @@ function Contact() {
               className="block mb-1 text-white text-xl"
               style={{ fontSize: `${20 * scalingFactor}px` }}
             >
-              Email
+              {data.emailLabel}
             </label>
             <input
               type="email"
@@ -208,7 +213,7 @@ function Contact() {
               className="block mb-1 text-white text-xl"
               style={{ fontSize: `${20 * scalingFactor}px` }}
             >
-              Message
+              {data.messageLabel}
             </label>
             <textarea
               id="message"
@@ -255,7 +260,7 @@ function Contact() {
               className="w-full p-3 bg-blue-600 hover:bg-blue-700 rounded text-white text-xl"
               style={{ fontSize: `${20 * scalingFactor}px`, padding: `${12 * scalingFactor}px` }}
             >
-              Send Message
+              {data.sendButton}
             </button>
           </div>
         </form>
@@ -263,11 +268,11 @@ function Contact() {
 
       <div ref={connectRef} className="text-center text-white mt-4">
         <h2 className="text-3xl font-bold mb-4" style={{ fontSize: `${30 * scalingFactor}px` }}>
-          Connect with me
+          {data.connectTitle}
         </h2>
         <div className="flex justify-center space-x-6">
           <a
-            href="https://discord.gg/your-discord"
+            href="https://dsc.bio/ravenlorr"
             target="_blank"
             rel="noopener noreferrer"
             className="text-5xl hover:text-blue-400"
@@ -276,7 +281,7 @@ function Contact() {
             <FaDiscord />
           </a>
           <a
-            href="https://www.linkedin.com/in/your-linkedin"
+            href="https://www.linkedin.com/in/3tiennefortier/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-5xl hover:text-blue-600"
@@ -294,7 +299,7 @@ function Contact() {
             <FaGithub />
           </a>
           <a
-            href="https://www.instagram.com/your-instagram"
+            href="https://www.instagram.com/etiennef03/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-5xl hover:text-pink-500"

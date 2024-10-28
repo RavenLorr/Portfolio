@@ -1,15 +1,18 @@
 import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 
-import { projects } from '@/data/projectsData.js';
+import { useLanguage } from '@/context/LanguageContext';
+import { projectsData } from '@/data/projectsData.js';
 import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
 const Projects = () => {
+    const { language } = useLanguage();
     const [activeTag, setActiveTag] = useState('All');
-    const [filteredProjects, setFilteredProjects] = useState(projects);
+    const [filteredProjects, setFilteredProjects] = useState([]);
     const [scale, setScale] = useState(1);
 
-    const allTags = ['All', ...new Set(projects.flatMap(project => project.tags))];
+    const data = projectsData[language];
+    const allTags = ['All', ...new Set(data.projects.flatMap(project => project.tags))];
 
     useEffect(() => {
         const updateScale = () => {
@@ -25,11 +28,11 @@ const Projects = () => {
 
     useEffect(() => {
         if (activeTag === 'All') {
-            setFilteredProjects(projects);
+            setFilteredProjects(data.projects);
         } else {
-            setFilteredProjects(projects.filter(project => project.tags.includes(activeTag)));
+            setFilteredProjects(data.projects.filter(project => project.tags.includes(activeTag)));
         }
-    }, [activeTag]);
+    }, [activeTag, data.projects]);
 
     return (
       <div className="relative min-h-screen flex justify-center"
@@ -42,7 +45,7 @@ const Projects = () => {
                 transition={{ duration: 0.5 }}
                 style={{ fontSize: `${3 * scale}rem` }}
               >
-                  My Projects
+                  {data.title}
               </motion.h1>
 
               <div className="flex flex-wrap justify-center gap-4 mb-8">

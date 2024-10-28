@@ -2,10 +2,12 @@ import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
 
-import { tabContent } from '@/data/aboutData.js';
+import { useLanguage} from '@/context/LanguageContext.jsx';
+import { aboutData } from '@/data/aboutData.js';
 import { ResponsiveUtils } from '@/utils/responsiveUtils.js';
 
 function About() {
+    const { language } = useLanguage();
     const [activeTab, setActiveTab] = useState('basics');
     const [scale, setScale] = useState(1);
 
@@ -22,6 +24,8 @@ function About() {
         return () => window.removeEventListener('resize', updateScale);
     }, []);
 
+    const data = aboutData[language];
+
     return (
         <div className="relative min-h-screen flex justify-center" style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${80 * scale}px` }}>
             <div className="w-4/5 max-w-6xl">
@@ -31,11 +35,11 @@ function About() {
                     animate={{opacity: 1, y: 0}}
                     transition={{duration: 0.5}}
                 >
-                    About Me
+                    {data.title}
                 </motion.h1>
 
                 <div className="flex flex-wrap justify-center gap-4 mb-8">
-                    {Object.keys(tabContent).map((tab) => (
+                    {Object.keys(data.tabs).map((tab) => (
                         <motion.button
                             key={tab}
                             className={`px-4 py-2 rounded-full ${activeTab === tab ? 'bg-blue-600' : 'bg-gray-700'} hover:bg-blue-500 transition-colors duration-200 text-white`}
@@ -44,8 +48,8 @@ function About() {
                             whileTap={{scale: 0.95}}
                             style={{ fontSize: `${1.25 * scale}rem` }}
                         >
-                            {React.createElement(tabContent[tab].icon)}
-                            <span className="ml-2">{tabContent[tab].title}</span>
+                            {React.createElement(data.tabs[tab].icon)}
+                            <span className="ml-2">{data.tabs[tab].title}</span>
                         </motion.button>
                     ))}
                 </div>
@@ -58,23 +62,23 @@ function About() {
                 >
                     <div className="w-full">
                         <h2 className="text-3xl font-bold mb-4 flex items-center justify-center" style={{fontSize: `${2 * scale}rem`}}>
-                            {React.createElement(tabContent[activeTab].icon)}
-                            <span className="ml-2">{tabContent[activeTab].title}</span>
+                            {React.createElement(data.tabs[activeTab].icon)}
+                            <span className="ml-2">{data.tabs[activeTab].title}</span>
                         </h2>
                         <p className="text-lg text-center"
-                           style={{fontSize: `${1.25 * scale}rem`}}>{tabContent[activeTab].content}</p>
+                           style={{fontSize: `${1.25 * scale}rem`}}>{data.tabs[activeTab].content}</p>
 
                         {activeTab === 'basics' && (
                             <div className="mt-4 grid grid-cols-2 gap-4">
                                 <div className="flex items-center justify-center"
                                      style={{fontSize: `${1.25 * scale}rem`}}>
                                     <FaMapMarkerAlt className="mr-2"/>
-                                    <span>Location: Your City, Country</span>
+                                    <span>{data.location}</span>
                                 </div>
                                 <div className="flex items-center justify-center"
                                      style={{fontSize: `${1.25 * scale}rem`}}>
                                     <FaLanguage className="mr-2"/>
-                                    <span>Languages: English, French</span>
+                                    <span>{data.language}</span>
                                 </div>
                             </div>
                         )}

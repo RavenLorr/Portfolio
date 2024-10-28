@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react';
 
-import { experience, education, years } from '@/data/experienceData.js';
-import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments.js';
-import { Section, TimelineList, YearLine, MobileWarning } from '@/utils/responsiveComponents.jsx';
+import { useLanguage } from '@/context/LanguageContext';
+import { experienceData } from '@/data/experienceData';
+import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
+import { Section, TimelineList, YearLine, MobileWarning } from '@/utils/responsiveComponents';
+
 
 function Experience() {
+    const { language } = useLanguage();
     const [selectedEndYear, setSelectedEndYear] = useState(null);
     const responsiveAdjustments = useResponsiveAdjustments();
 
@@ -19,16 +22,17 @@ function Experience() {
     if (!responsiveAdjustments) return null;
 
     const { isMobile, scalingFactor } = responsiveAdjustments;
+    const data = experienceData[language];
 
     return (
         <div className="relative font-sans text-white min-h-screen flex flex-col justify-center items-center p-2 sm:p-5 box-border">
             <Section
-                title="Professional Experience"
+                title={data.experienceTitle}
                 isMobile={isMobile}
                 scalingFactor={scalingFactor}
             >
                 <TimelineList
-                    events={experience}
+                    events={data.experience}
                     onHover={handleEventHover}
                     onLeave={handleEventLeave}
                     isMobile={isMobile}
@@ -38,7 +42,7 @@ function Experience() {
 
             <YearLine
                 selectedEndYear={selectedEndYear}
-                years={years}
+                years={experienceData.years}
                 isMobile={isMobile}
                 scalingFactor={scalingFactor}
             />
@@ -49,7 +53,7 @@ function Experience() {
                 scalingFactor={scalingFactor}
             >
                 <TimelineList
-                    events={education}
+                    events={data.education}
                     onHover={handleEventHover}
                     onLeave={handleEventLeave}
                     isMobile={isMobile}
