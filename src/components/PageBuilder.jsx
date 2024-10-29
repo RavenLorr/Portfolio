@@ -8,6 +8,8 @@ class PageBuilder {
     this.title = '';
     this.content = null;
     this.responsiveData = { fontSize: 16, scale: 1 };
+    this.padding = 80;
+    this.marginBottom = 12;
   }
 
   setTitle(title) {
@@ -17,6 +19,16 @@ class PageBuilder {
 
   setContent(content) {
     this.content = content;
+    return this;
+  }
+
+  setPadding(padding) {
+    this.padding = padding
+    return this;
+  }
+
+  setMarginbottom(marginBottom) {
+    this.marginBottom = marginBottom
     return this;
   }
 
@@ -37,10 +49,10 @@ class PageBuilder {
 
       return (
         <div className="relative min-h-screen flex justify-center"
-             style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${80 * this.responsiveData.scale}px` }}>
+             style={{ fontSize: 'var(--root-font-size, 16px)', padding: `${this.padding * this.responsiveData.scale}px` }}>
           <div className="w-4/5 max-w-6xl">
             <motion.h1
-              className="text-6xl font-space-game font-bold text-center mb-12 text-white"
+              className={`text-6xl font-space-game font-bold text-center mb-${this.marginBottom} text-white`}
               initial={{opacity: 0, y: -50}}
               animate={{opacity: 1, y: 0}}
               transition={{duration: 0.5}}

@@ -68,6 +68,8 @@ function Experience() {
   const pageBuilder = new PageBuilder();
   pageBuilder.setTitle(data.title);
   pageBuilder.setContent(content);
+  pageBuilder.setPadding(0);
+  pageBuilder.setMarginbottom(0);
   return pageBuilder.build();
 }
 
