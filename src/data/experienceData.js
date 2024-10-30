@@ -21,7 +21,8 @@ export const experienceData = {
             { startYear: 2023, endYear: 2024, title: "Fouth Year", subtitle: "Learning about mathematics of computer, DB-2 (SQL/Maria), Validation and Maintenance, Game Development (Unity)", color: "bg-amber-500" },
             { startYear: 2024, endYear: 2025, title: "Fifth Year (Current)", subtitle: "Learning about single-user application (C++, java), Web App (js, React), DB-3 (Oracle), Mobile App, Technology Watch", color: "bg-rose-500" },
             { startYear: 2025, endYear: 2026, title: "Sixth Year", subtitle: "Learning about App security, Game Development-2, Connected object, Application development", color: "bg-fuchsia-500" },
-        ],//bg-emerald-500
+            {startYear: 2015, endYear: 2015.5, title: "test", subtitle: "none", color:"bg-emerald-500"}
+        ],
     },
     fr: {
         experienceTitle: "Expérience Professionnelle",

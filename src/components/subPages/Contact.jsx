@@ -5,7 +5,7 @@ import React, { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 
-import PageBuilder from '@/components/PageBuilder.jsx';
+import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import { contactData } from '@/data/contactData.js';
 

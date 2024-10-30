@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
 
-import PageBuilder from '@/components/PageBuilder.jsx';
+import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import { aboutData } from '@/data/aboutData.js';
 

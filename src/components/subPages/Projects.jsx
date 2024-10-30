@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 
-import PageBuilder from '@/components/PageBuilder.jsx';
+import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext';
 import { projectsData } from '@/data/projectsData.js';
 

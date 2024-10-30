@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 
-import PageBuilder from '@/components/PageBuilder';
+import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext';
 import { experienceData } from '@/data/experienceData';
 import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
-import { Section, TimelineList, YearLine, MobileWarning } from '@/utils/responsiveComponents';
+import { Section, TimelineList, YearLine, MobileWarning } from '@/components/builder/responsiveComponents.jsx';
 
 function Experience() {
   const { language } = useLanguage();
