@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 
 import PageBuilder from '@/components/builder/PageBuilder.jsx';
+import { Section, TimelineList, YearLine, MobileWarning } from '@/components/builder/responsiveComponents.jsx';
 import { useLanguage } from '@/context/LanguageContext';
 import { experienceData } from '@/data/experienceData';
 import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
-import { Section, TimelineList, YearLine, MobileWarning } from '@/components/builder/responsiveComponents.jsx';
 
 function Experience() {
   const { language } = useLanguage();
@@ -25,7 +25,7 @@ function Experience() {
   const data = experienceData[language];
 
   const content = () => (
-    <div className="relative font-sans text-white min-h-screen flex flex-col justify-center items-center p-2 sm:p-5 box-border">
+    <div className="relative font-sans text-white min-h-screen flex flex-col justify-evenly items-center p-2 sm:p-5 box-border">
       <Section
         title={data.experienceTitle}
         isMobile={isMobile}

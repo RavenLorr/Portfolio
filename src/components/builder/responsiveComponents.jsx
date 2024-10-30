@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import React from 'react';
 
 const TimelineEvent = React.memo(({ startYear, endYear, title, subtitle, color, verticalPosition, onHover, onLeave, isMobile, scalingFactor }) => {
@@ -13,13 +12,17 @@ const TimelineEvent = React.memo(({ startYear, endYear, title, subtitle, color, 
             onMouseEnter={() => onHover(endYear)}
             onMouseLeave={onLeave}
         >
-            <div className={`rounded-md transition-all duration-300 ease-in-out flex items-center justify-center overflow-hidden ${color} event-bar`}
+            <div className={`rounded-md transition-all duration-300 ease-in-out flex items-center justify-center ${color} event-bar 
+                           group-hover:z-50 group-hover:scale-150 group-hover:shadow-lg`}
                  style={{ height: isMobile ? '18px' : `${18 * scalingFactor}px` }}>
-                <h3 className="m-0 whitespace-nowrap overflow-hidden text-ellipsis text-center"
-                    style={{ fontSize: isMobile ? '12px' : `${12 * scalingFactor}px` }}>{title}</h3>
+                <h3 className="m-0 text-center transition-all duration-300 ease-in-out group-hover:whitespace-normal
+                               group-hover:overflow-visible whitespace-nowrap overflow-hidden text-ellipsis group-hover:scale-60"
+                    style={{ fontSize: isMobile ? '12px' : `${12 * scalingFactor}px`, lineHeight: '1' }}>{title}</h3>
             </div>
-            <p className="mt-[5px] mb-0 opacity-0 whitespace-nowrap overflow-hidden text-ellipsis text-center transition-opacity duration-300 ease-in-out group-hover:opacity-100"
-               style={{ fontSize: isMobile ? '10px' : `${10 * scalingFactor}px` }}>{subtitle}</p>
+            <p className="mt-[5px] mb-0 opacity-0 text-center transition-all duration-300 ease-in-out
+                          group-hover:opacity-100 group-hover:whitespace-normal group-hover:overflow-visible
+                          whitespace-nowrap overflow-hidden text-ellipsis"
+               style={{ fontSize: isMobile ? '10px' : `${10 * scalingFactor}px`, lineHeight: '1.1'}}>{subtitle}</p>
         </li>
     );
 });
