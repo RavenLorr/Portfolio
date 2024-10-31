@@ -1,6 +1,5 @@
 import emailjs from '@emailjs/browser';
 import DOMPurify from 'dompurify';
-import { motion } from 'framer-motion';
 import React, { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
@@ -59,7 +58,7 @@ function Contact() {
   };
 
   const content = ({ scale }) => (
-    <motion.div
+    <div
       className="w-full max-w-6xl bg-black bg-opacity-40 rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-6 mb-8"
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
@@ -214,7 +213,7 @@ function Contact() {
           </a>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 
   const pageBuilder = new PageBuilder();

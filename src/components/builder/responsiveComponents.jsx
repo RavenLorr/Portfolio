@@ -16,13 +16,15 @@ const TimelineEvent = React.memo(({ startYear, endYear, title, subtitle, color, 
                            group-hover:z-50 group-hover:scale-150 group-hover:shadow-lg`}
                  style={{ height: isMobile ? '18px' : `${18 * scalingFactor}px` }}>
                 <h3 className="m-0 text-center transition-all duration-300 ease-in-out group-hover:whitespace-normal
-                               group-hover:overflow-visible whitespace-nowrap overflow-hidden text-ellipsis group-hover:scale-60"
+                               group-hover:overflow-visible whitespace-nowrap overflow-hidden text-ellipsis group-hover:scale-65"
                     style={{ fontSize: isMobile ? '12px' : `${12 * scalingFactor}px`, lineHeight: '1' }}>{title}</h3>
             </div>
             <p className="mt-[5px] mb-0 opacity-0 text-center transition-all duration-300 ease-in-out
                           group-hover:opacity-100 group-hover:whitespace-normal group-hover:overflow-visible
                           whitespace-nowrap overflow-hidden text-ellipsis"
-               style={{ fontSize: isMobile ? '10px' : `${10 * scalingFactor}px`, lineHeight: '1.1'}}>{subtitle}</p>
+               style={{ fontSize: isMobile ? '10px' : `${10 * scalingFactor}px`, lineHeight: '1.1', padding: scalingFactor > 1.5 ? "0.5rem" : "0rem"}}>
+              {subtitle}
+            </p>
         </li>
     );
 });

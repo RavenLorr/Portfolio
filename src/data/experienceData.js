@@ -8,7 +8,7 @@ export const experienceData = {
             { startYear: 2020.4, endYear: 2021.4, title: "Minecraft Server", subtitle: "A project taken with a friend where we develop a complete server over a period of a few months", color: "bg-blue-500" },
             { startYear: 2021.4, endYear: 2022.5, title: "Red Dead Redemption 2", subtitle: "Lead Dev on a private RDR2 server developed from scratch (RedM)", color: "bg-green-500" },
             { startYear: 2022.5, endYear: 2023.2, title: "Grand Theft Auto", subtitle: "Developer and Safety ref on a GTA V private server (FiveM)", color: "bg-yellow-500" },
-            { startYear: 2023.4, endYear: 2024, title: "Last Defender", subtitle: "Tower Deffence game (Unity) made in 1 month with a college", color: "bg-red-500" },
+            { startYear: 2023.4, endYear: 2024, title: "Last Defender", subtitle: "Tower Defence game (Unity) made in 1 month with a college", color: "bg-red-500" },
             { startYear: 2024, endYear: 2024.6, title: "Cars Runner", subtitle: "A Top runner mobile game (Unity), created on contract", color: "bg-purple-500" },
         ],
         education: [
@@ -17,8 +17,8 @@ export const experienceData = {
 
             { startYear: 2020, endYear: 2021, title: "First Year", subtitle: "Learning about OOP (Java), Web Interface and Microsoft tools", color: "bg-indigo-500" },
             { startYear: 2021, endYear: 2022, title: "Second Year", subtitle: "Learning about OS, network architecture, OOP-2 (Java), Java detailed", color: "bg-lime-500" },
-            { startYear: 2022, endYear: 2023, title: "Third Year", subtitle: "Learning about DB (SQL), server, Web developement (JS/PHP)", color: "bg-cyan-500" },
-            { startYear: 2023, endYear: 2024, title: "Fouth Year", subtitle: "Learning about mathematics of computer, DB-2 (SQL/Maria), Validation and Maintenance, Game Development (Unity)", color: "bg-amber-500" },
+            { startYear: 2022, endYear: 2023, title: "Third Year", subtitle: "Learning about DB (SQL), server, Web development (JS/PHP)", color: "bg-cyan-500" },
+            { startYear: 2023, endYear: 2024, title: "Fourth Year", subtitle: "Learning about mathematics of computer, DB-2 (SQL/Maria), Validation and Maintenance, Game Development (Unity)", color: "bg-amber-500" },
             { startYear: 2024, endYear: 2025, title: "Fifth Year (Current)", subtitle: "Learning about single-user application (C++, java), Web App (js, React), DB-3 (Oracle), Mobile App, Technology Watch", color: "bg-rose-500" },
         ],// bg-fuchsia-500 bg-emerald-500
     },

@@ -2,7 +2,7 @@ export class ResponsiveUtils {
     static getScalingFactor() {
         const width = window.innerWidth;
         if (width >= 7680) { // 8K
-            return { fontSize: 48, scale: 3 };
+            return { fontSize: 48, scale: 2.5 };
         } else if (width >= 5120) { // 5K
             return { fontSize: 32, scale: 2 };
         } else if (width >= 3840) { // 4K
