@@ -4,8 +4,8 @@ import React, { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 
-import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
+import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { contactData } from '@/data/contactData.js';
 
 const MAX_MESSAGE_LENGTH = 5000;
@@ -14,7 +14,7 @@ const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const publicKey = import.meta.env.VITE_EMAILJS_API_KEY;
 const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
-function Contact() {
+function ContactContent({ scale }) {
   const { language } = useLanguage();
   const data = contactData[language];
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -46,18 +46,18 @@ function Contact() {
       return;
     }
     emailjs.send(serviceId, templateId,
-      { ...formData, 'g-recaptcha-response': captchaToken }, publicKey)
-      .then(() => {
-        alert(data.successMessage);
-        setFormData({ name: '', email: '', message: '' });
-        setCaptchaToken(null);
-        recaptchaRef.current.reset();
-      }, () => {
-        alert(data.errorMessage);
-      });
+        { ...formData, 'g-recaptcha-response': captchaToken }, publicKey)
+        .then(() => {
+          alert(data.successMessage);
+          setFormData({ name: '', email: '', message: '' });
+          setCaptchaToken(null);
+          recaptchaRef.current.reset();
+        }, () => {
+          alert(data.errorMessage);
+        });
   };
 
-  const content = ({ scale }) => (
+  return (
     <div
       className="w-full max-w-6xl bg-black bg-opacity-40 rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-6 mb-8"
       initial={{ opacity: 0, y: -50 }}
@@ -215,11 +215,18 @@ function Contact() {
       </div>
     </div>
   );
+}
 
-  const pageBuilder = new PageBuilder();
+function Contact() {
+  const pageBuilder = usePageBuilder();
+  const { language } = useLanguage();
+  const data = contactData[language];
+
   pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(content);
-  return pageBuilder.build();
+  pageBuilder.setContent(ContactContent);
+
+  const BuilderComponent = pageBuilder.build();
+  return <BuilderComponent />;
 }
 
 export default Contact;

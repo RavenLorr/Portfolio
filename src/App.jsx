@@ -1,10 +1,14 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import {PageBuilderProvider} from "@/context/PageBuilderContext.jsx";
+
 import LoadingScreen from './components/loading/LoadingScreen.jsx';
 import { NavBar, Home, About, Projects, Contact, Experience } from './utils/import/lazyComponents.js';
 import { PointerParticles } from './utils/import/lazyComponentsAnimations.js';
 import useComponentLoader from './utils/useComponentLoader.js';
+
+
 import './App.css';
 
 /*
@@ -48,13 +52,16 @@ function App() {
                 <div className="relative min-h-screen bg-custom-radial flex flex-col">
                     <NavBar/>
                     <div className="flex-grow relative z-10">
-                        <Routes>
-                            <Route path="/" element={<Home/>}/>
-                            <Route path="/about" element={<About/>}/>
-                            <Route path="/projects" element={<Projects/>}/>
-                            <Route path="/contact" element={<Contact/>}/>
-                            <Route path="/experience" element={<Experience/>}/>
-                        </Routes>
+                        <PageBuilderProvider>
+                            <Routes>
+                                <Route path="/" element={<Home/>}/>
+                                <Route path="/about" element={<About/>}/>
+                                <Route path="/projects" element={<Projects/>}/>
+                                <Route path="/contact" element={<Contact/>}/>
+                                <Route path="/experience" element={<Experience/>}/>
+                            </Routes>
+                        </PageBuilderProvider>
+
                     </div>
                     <PointerParticles/>
                 </div>
