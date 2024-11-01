@@ -6,8 +6,9 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 
 import { useLanguage } from '@/context/LanguageContext.jsx';
-import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { contactData } from '@/data/contactData.js';
+
+import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 
 const MAX_MESSAGE_LENGTH = 5000;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -64,7 +65,7 @@ function ContactContent({ scale }) {
   return (
     <div className="flex flex-col items-center">
       <motion.div
-        className="w-full max-w-6xl bg-black bg-opacity-40 overflow-hidden rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-6 mb-8"
+        className="w-full max-w-6xl bg-black bg-opacity-40 rounded-lg backdrop-filter backdrop-blur-sm shadow-lg p-2 mb-8"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -225,18 +226,5 @@ function ContactContent({ scale }) {
   );
 }
 
-function Contact() {
-  const pageBuilder = usePageBuilder();
-  const { language } = useLanguage();
-  const data = contactData[language];
-
-  pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(ContactContent);
-  pageBuilder.setMarginbottom(80);
-  pageBuilder.setPadding(48);
-
-  const BuilderComponent = pageBuilder.build();
-  return <BuilderComponent />;
-}
-
+const Contact = withPageBuilder(ContactContent, (language) => contactData[language], 80, 48);
 export default Contact;

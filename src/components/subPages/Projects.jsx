@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 
+import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext';
-import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { projectsData } from '@/data/projectsData.js';
 
 const ProjectsContent = ({ scale }) => {
@@ -108,18 +108,5 @@ const ProjectsContent = ({ scale }) => {
   );
 };
 
-function Projects() {
-  const pageBuilder = usePageBuilder();
-  const { language } = useLanguage();
-  const data = projectsData[language];
-
-  pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(ProjectsContent);
-  pageBuilder.setMarginbottom(80)
-  pageBuilder.setPadding(48)
-
-  const BuilderComponent = pageBuilder.build();
-  return <BuilderComponent />;
-}
-
+const Projects = withPageBuilder(ProjectsContent, (language) => projectsData[language], 80, 48);
 export default Projects;

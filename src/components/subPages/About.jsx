@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
 
+import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
-import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { aboutData } from '@/data/aboutData.js';
 
 function AboutContent({ scale }) {
@@ -64,18 +64,5 @@ function AboutContent({ scale }) {
   );
 }
 
-function About() {
-  const pageBuilder = usePageBuilder();
-  const { language } = useLanguage();
-  const data = aboutData[language];
-
-  pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(AboutContent);
-  pageBuilder.setMarginbottom(80)
-  pageBuilder.setPadding(48)
-
-  const BuilderComponent = pageBuilder.build();
-  return <BuilderComponent />;
-}
-
+const About = withPageBuilder(AboutContent, (language) => aboutData[language], 80, 48);
 export default About;

@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 
 import { Section, TimelineList, YearLine, MobileWarning } from '@/components/builder/responsiveComponents.jsx';
+import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext';
-import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { experienceData } from '@/data/experienceData';
 import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
 
@@ -66,16 +66,5 @@ function ExperienceContent() {
   );
 }
 
-function Experience() {
-  const pageBuilder = usePageBuilder();
-
-  pageBuilder.setTitle();
-  pageBuilder.setContent(ExperienceContent);
-  pageBuilder.setMarginbottom(0)
-  pageBuilder.setPadding(0)
-
-  const BuilderComponent = pageBuilder.build();
-  return <BuilderComponent />;
-}
-
+const Experience = withPageBuilder(ExperienceContent, (language) => experienceData[language], 0, 0);
 export default Experience;
