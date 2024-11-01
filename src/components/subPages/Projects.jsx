@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 
-import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext';
+import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { projectsData } from '@/data/projectsData.js';
 
-const Projects = () => {
+const ProjectsContent = ({ scale }) => {
   const { language } = useLanguage();
   const [activeTag, setActiveTag] = useState('All');
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -20,7 +20,7 @@ const Projects = () => {
     );
   }, [activeTag, data.projects]);
 
-  const content = ({ scale }) => (
+  return (
     <>
       <div className="flex flex-wrap justify-center gap-4 mb-8">
         {allTags.map(tag => (
@@ -106,11 +106,20 @@ const Projects = () => {
       </motion.div>
     </>
   );
-
-  const pageBuilder = new PageBuilder();
-  pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(content);
-  return pageBuilder.build();
 };
+
+function Projects() {
+  const pageBuilder = usePageBuilder();
+  const { language } = useLanguage();
+  const data = projectsData[language];
+
+  pageBuilder.setTitle(data.title);
+  pageBuilder.setContent(ProjectsContent);
+  pageBuilder.setMarginbottom(80)
+  pageBuilder.setPadding(48)
+
+  const BuilderComponent = pageBuilder.build();
+  return <BuilderComponent />;
+}
 
 export default Projects;
