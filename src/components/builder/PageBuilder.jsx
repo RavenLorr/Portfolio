@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React, {useEffect, useState} from 'react';
 
 import {CanvasUtils} from '@/utils/canvasUtils.js';
@@ -69,15 +70,18 @@ class PageBuilder {
                     }}
                 >
                     <div className="" style={{width: adjustments.isPortrait ? '95%' : '75%'}}>
-                        <h1
+                        <motion.h1
                             className="text-6xl font-space-game font-bold text-center text-white"
+                            initial={{ opacity: 0, y: -50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
                             style={{
                                 fontSize: `${3 * responsiveData.scale}rem`,
                                 marginBottom: `${this.marginBottom * responsiveData.scale}px`
                             }}
                         >
                             {this.title}
-                        </h1>
+                        </motion.h1>
                         {Content && <Content {...responsiveData} />}
                     </div>
                 </div>
