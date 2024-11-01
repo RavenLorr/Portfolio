@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 
 const TimelineEvent = React.memo(({ startYear, endYear, title, subtitle, color, verticalPosition, onHover, onLeave, isMobile, scalingFactor }) => {
@@ -30,7 +31,7 @@ const TimelineEvent = React.memo(({ startYear, endYear, title, subtitle, color, 
 });
 
 const YearMarker = React.memo(({ year, isMobile, scalingFactor }) => (
-    <li
+    <motion.li
         className="absolute transform -translate-x-1/2"
         style={{
             left: `${(year - 2015) * 10}%`,
@@ -42,12 +43,12 @@ const YearMarker = React.memo(({ year, isMobile, scalingFactor }) => (
         transition={{ duration: 0.5 }}
     >
         {isMobile && year % 2 !== 0 ? '' : year}
-    </li>
+    </motion.li>
 ));
 
 export const Section = ({ title, children, isMobile, scalingFactor }) => (
     <div className="w-full" style={{maxWidth: isMobile ? '1000px' : `${1000 * scalingFactor}px`}} role="region" aria-label={title}>
-        <h2
+        <motion.h2
             className="font-space-game mb-3 sm:mb-5 text-center"
             initial={{opacity: 0, y: -20}}
             animate={{opacity: 1, y: 0}}
@@ -55,13 +56,13 @@ export const Section = ({ title, children, isMobile, scalingFactor }) => (
             style={{fontSize: isMobile ? '24px' : `${24 * scalingFactor}px`}}
         >
             {title}
-        </h2>
+        </motion.h2>
         {children}
     </div>
 );
 
 export const TimelineList = ({ events, onHover, onLeave, isMobile, scalingFactor }) => (
-    <ul
+    <motion.ul
         className="relative list-none"
         initial={{opacity: 0, y: 20}}
         animate={{opacity: 1, y: 0}}
@@ -79,7 +80,7 @@ export const TimelineList = ({ events, onHover, onLeave, isMobile, scalingFactor
                 scalingFactor={scalingFactor}
             />
         ))}
-    </ul>
+    </motion.ul>
 );
 
 export const YearLine = ({ selectedEndYear, years, isMobile, scalingFactor }) => (

@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 
-import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { Section, TimelineList, YearLine, MobileWarning } from '@/components/builder/responsiveComponents.jsx';
 import { useLanguage } from '@/context/LanguageContext';
+import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { experienceData } from '@/data/experienceData';
 import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
 
-function Experience() {
+function ExperienceContent() {
   const { language } = useLanguage();
   const [selectedEndYear, setSelectedEndYear] = useState(null);
   const responsiveAdjustments = useResponsiveAdjustments();
@@ -24,7 +24,7 @@ function Experience() {
   const { isMobile, scalingFactor } = responsiveAdjustments;
   const data = experienceData[language];
 
-  const content = () => (
+  return (
     <div className="relative font-sans text-white min-h-screen flex flex-col justify-evenly items-center p-2 sm:p-5 box-border">
       <Section
         title={data.experienceTitle}
@@ -64,13 +64,18 @@ function Experience() {
       {isMobile && <MobileWarning />}
     </div>
   );
+}
 
-  const pageBuilder = new PageBuilder();
-  pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(content);
-  pageBuilder.setPadding(0);
-  pageBuilder.setMarginbottom(0);
-  return pageBuilder.build();
+function Experience() {
+  const pageBuilder = usePageBuilder();
+
+  pageBuilder.setTitle();
+  pageBuilder.setContent(ExperienceContent);
+  pageBuilder.setMarginbottom(0)
+  pageBuilder.setPadding(0)
+
+  const BuilderComponent = pageBuilder.build();
+  return <BuilderComponent />;
 }
 
 export default Experience;
