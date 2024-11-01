@@ -2,11 +2,11 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
 
-import PageBuilder from '@/components/builder/PageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
+import { usePageBuilder } from '@/context/PageBuilderContext.jsx';
 import { aboutData } from '@/data/aboutData.js';
 
-function About() {
+function AboutContent({ scale }) {
   const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState('basics');
   const data = aboutData[language];
@@ -42,7 +42,7 @@ function About() {
     </motion.div>
   );
 
-  const content = ({ scale }) => (
+  return (
     <>
       <div className="flex flex-wrap justify-center gap-4 mb-8">
         {Object.keys(data.tabs).map((tab) => (
@@ -62,11 +62,20 @@ function About() {
       {renderTabContent(scale)}
     </>
   );
+}
 
-  const pageBuilder = new PageBuilder();
+function About() {
+  const pageBuilder = usePageBuilder();
+  const { language } = useLanguage();
+  const data = aboutData[language];
+
   pageBuilder.setTitle(data.title);
-  pageBuilder.setContent(content);
-  return pageBuilder.build();
+  pageBuilder.setContent(AboutContent);
+  pageBuilder.setMarginbottom(80)
+  pageBuilder.setPadding(48)
+
+  const BuilderComponent = pageBuilder.build();
+  return <BuilderComponent />;
 }
 
 export default About;
