@@ -8,13 +8,17 @@ import { CanvasUtils } from '@/utils/canvasUtils.js';
 import './style/navbar.css';
 
 function NavItem({ text, path, scalingFactor }) {
-    return (
-      <li style={{ margin: `${10 * scalingFactor}px` }}>
-          <Link to={path} className="font-space-game text-white hover:underline transition duration-300" style={{ fontSize: `${22 * scalingFactor}px` }}>
-              {text}
-          </Link>
-      </li>
-    );
+  return (
+    <li style={{ margin: `${10 * scalingFactor}px` }}>
+      <Link
+        to={path}
+        className="font-space-game text-white hover:underline transition duration-300"
+        style={{ fontSize: `${22 * scalingFactor}px` }}
+      >
+        {text}
+      </Link>
+    </li>
+  );
 }
 
 const NavBar = () => {
@@ -25,7 +29,7 @@ const NavBar = () => {
     { text: navbarData[language].about, path: '/about' },
     { text: navbarData[language].projects, path: '/projects' },
     { text: navbarData[language].contact, path: '/contact' },
-    { text: navbarData[language].experience, path: '/experience' }
+    { text: navbarData[language].experience, path: '/experience' },
   ];
 
   const updateScalingFactor = () => {
@@ -46,12 +50,19 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 right-0 w-full p-4 flex items-center bg-custom-radial bg-custom-radial-opacity z-50" style={{ height: `${50 * scalingFactor}px` }}>
-      <button onClick={toggleLanguage} className="text-white mr-auto" style={{ fontSize: `${22 * scalingFactor}px` }}>
+    <nav
+      className="fixed top-0 right-0 w-full p-4 flex items-center bg-custom-radial bg-custom-radial-opacity z-50"
+      style={{ height: `${50 * scalingFactor}px` }}
+    >
+      <button
+        onClick={toggleLanguage}
+        className="text-white mr-auto"
+        style={{ fontSize: `${22 * scalingFactor}px` }}
+      >
         {language === 'en' ? 'FR' : 'EN'}
       </button>
       <ul className="flex ml-auto space-x-4">
-        {navItems.map((item) => (
+        {navItems.map(item => (
           <NavItem key={item.text} {...item} scalingFactor={scalingFactor} />
         ))}
       </ul>

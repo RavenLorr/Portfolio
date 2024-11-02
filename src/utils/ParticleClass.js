@@ -52,7 +52,7 @@ export class Particle {
 
     if (this.life !== undefined) {
       // Ring particle opacity
-      this.ctx.fillStyle = `rgba(255, 255, 255, ${this.life / this.maxLife * 0.5})`;
+      this.ctx.fillStyle = `rgba(255, 255, 255, ${(this.life / this.maxLife) * 0.5})`;
     } else {
       // Pointer particle color
       this.ctx.fillStyle = this.color;
@@ -76,7 +76,9 @@ export class Particle {
     this.life -= 1;
 
     if (this.inward) {
-      const distanceToCenter = Math.sqrt(Math.pow(this.x - this.centerX, 2) + Math.pow(this.y - this.centerY, 2));
+      const distanceToCenter = Math.sqrt(
+        Math.pow(this.x - this.centerX, 2) + Math.pow(this.y - this.centerY, 2)
+      );
       if (distanceToCenter < 50) {
         this.life = Math.min(this.life, distanceToCenter);
       }
@@ -111,7 +113,7 @@ export class Particle {
       speed,
       pointer: component.pointer,
       ctx: component.ctx,
-      scalingFactor
+      scalingFactor,
     });
   }
 
@@ -126,7 +128,7 @@ export class Particle {
       life,
       inward,
       centerX,
-      centerY
+      centerY,
     });
   }
 }

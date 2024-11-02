@@ -108,5 +108,5 @@ const ProjectsContent = ({ scale }) => {
   );
 };
 
-const Projects = withPageBuilder(ProjectsContent, (language) => projectsData[language], 80, 48);
+const Projects = withPageBuilder(ProjectsContent, language => projectsData[language], 80, 48);
 export default Projects;

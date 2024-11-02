@@ -6,7 +6,7 @@ export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
 
   const toggleLanguage = () => {
-    setLanguage((prevLanguage) => (prevLanguage === 'en' ? 'fr' : 'en'));
+    setLanguage(prevLanguage => (prevLanguage === 'en' ? 'fr' : 'en'));
   };
 
   return (

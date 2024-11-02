@@ -226,5 +226,5 @@ function ContactContent({ scale }) {
   );
 }
 
-const Contact = withPageBuilder(ContactContent, (language) => contactData[language], 80, 48);
+const Contact = withPageBuilder(ContactContent, language => contactData[language], 80, 48);
 export default Contact;
