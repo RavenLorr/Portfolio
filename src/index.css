@@ -54,9 +54,18 @@
     box-shadow: 0 0 15px rgba(20, 184, 166, 0.7);
   }
 
-  .group:hover .group-hover\:scale-65 {
-    --tw-scale-x: 0.65;
+  .group:hover .group-hover\:scale-up {
+    --tw-scale-x: 1.10;
+    --tw-scale-y: 1.90;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
+    scaleY(var(--tw-scale-y));
+  }
+
+  .group:hover .group-hover\:scale-down {
+    --tw-scale-x: 0.90;
     --tw-scale-y: 0.65;
+    --tw-translate-y: -5%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate))
       skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
       scaleY(var(--tw-scale-y));

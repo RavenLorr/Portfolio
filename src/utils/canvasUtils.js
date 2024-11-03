@@ -50,7 +50,6 @@ export class CanvasUtils {
     const ringCenterX = canvas.width / 2;
     const ringCenterY = canvas.height / 2;
 
-    //console.log('canvas.width: '+canvas.width+' canvas.height: '+canvas.height+' widthScalingFactor: '+widthScalingFactor+' heightScalingFactor: '+heightScalingFactor+' scalingFactor: '+scalingFactor);
     return { baseRadius, ringCenterX, ringCenterY, scalingFactor };
   }
 

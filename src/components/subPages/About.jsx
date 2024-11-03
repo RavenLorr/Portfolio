@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
 
 import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
@@ -35,14 +34,14 @@ function AboutContent({ scale }) {
               className="flex items-center justify-center"
               style={{ fontSize: `${1.25 * scale}rem` }}
             >
-              <FaMapMarkerAlt className="mr-2" />
+              {React.createElement(aboutData.locationIcon, { className: 'mr-2' })}
               <span>{data.location}</span>
             </div>
             <div
               className="flex items-center justify-center"
               style={{ fontSize: `${1.25 * scale}rem` }}
             >
-              <FaLanguage className="mr-2" />
+              {React.createElement(aboutData.languageIcon, { className: 'mr-2' })}
               <span>{data.language}</span>
             </div>
           </div>

@@ -1,6 +1,8 @@
-import { FaUser, FaRunning, FaCamera, FaPencilAlt, FaFlag } from 'react-icons/fa';
+import { FaUser, FaRunning, FaCamera, FaPencilAlt, FaFlag, FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
 
 export const aboutData = {
+  locationIcon: FaMapMarkerAlt,
+  languageIcon: FaLanguage,
   en: {
     title: 'About Me',
     location: 'Location: Québec, Canada',

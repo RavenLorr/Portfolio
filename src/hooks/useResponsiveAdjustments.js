@@ -14,6 +14,7 @@ export const useResponsiveAdjustments = () => {
       CanvasUtils.calculateBaseRadiusAndCenter(canvas);
     setResponsiveAdjustments({
       ...adjustments,
+      canvas,
       scalingFactor,
       baseRadius,
       ringCenterX,

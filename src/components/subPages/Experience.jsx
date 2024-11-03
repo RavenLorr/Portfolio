@@ -10,6 +10,7 @@ import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext';
 import { experienceData } from '@/data/experienceData';
 import { useResponsiveAdjustments } from '@/hooks/useResponsiveAdjustments';
+import { ResponsiveUtils } from '@/utils/responsiveUtils';
 
 function ExperienceContent() {
   const { language } = useLanguage();
@@ -26,7 +27,9 @@ function ExperienceContent() {
 
   if (!responsiveAdjustments) return null;
 
-  const { isMobile, scalingFactor } = responsiveAdjustments;
+  const { isMobile, canvas } = responsiveAdjustments;
+  const scalingFactor = ResponsiveUtils.getScalingFactor(canvas).scale;
+  console.log(scalingFactor);
   const data = experienceData[language];
 
   return (

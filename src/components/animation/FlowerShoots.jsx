@@ -18,7 +18,7 @@ const FlowerShoots = () => {
     const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
 
     const numberParticlesStart = Math.min(Math.max(Math.floor(1000 * scalingFactor), 400), 2000);
-    const particleSpeed = Math.min(Math.max(0.3 * scalingFactor, 0.18), 0.6);
+    const particleSpeed = Math.min(Math.max(0.3 * scalingFactor, 0.1), 0.6);
     const velocity = 0.9;
     const dampingDuration = Math.min(Math.max(30000 * scalingFactor, 12000), 60000);
 
@@ -32,6 +32,7 @@ const FlowerShoots = () => {
         x: (getRandomFloat(-20, 20) / 100) * scalingFactor,
         y: (getRandomFloat(-20, 20) / 100) * scalingFactor,
         min: getRandomFloat(2, 10) * scalingFactor,
+
         max: (getRandomFloat(10, 100) / 10) * scalingFactor,
       };
       this.color = 'rgba(213, 163, 71, 0.05)';

@@ -27,23 +27,23 @@ const TimelineEvent = React.memo(
       >
         <div
           className={`rounded-md transition-all duration-300 ease-in-out flex items-center justify-center ${color} event-bar 
-                           group-hover:z-50 group-hover:scale-150 group-hover:shadow-lg`}
+                           group-hover:z-50 group-hover:scale-up group-hover:shadow-lg`}
           style={{ height: isMobile ? '18px' : `${18 * scalingFactor}px` }}
         >
           <h3
             className="m-0 text-center transition-all duration-300 ease-in-out group-hover:whitespace-normal
-                               group-hover:overflow-visible whitespace-nowrap overflow-hidden text-ellipsis group-hover:scale-65"
+                               group-hover:overflow-visible whitespace-nowrap overflow-hidden text-ellipsis group-hover:scale-down"
             style={{ fontSize: isMobile ? '12px' : `${12 * scalingFactor}px`, lineHeight: '1' }}
           >
             {title}
           </h3>
         </div>
         <p
-          className="mt-[5px] mb-0 opacity-0 text-center transition-all duration-300 ease-in-out
+          className="mt-2 mb-0 opacity-0 text-center transition-all duration-300 ease-in-out
                           group-hover:opacity-100 group-hover:whitespace-normal group-hover:overflow-visible
                           whitespace-nowrap overflow-hidden text-ellipsis"
           style={{
-            fontSize: isMobile ? '10px' : `${10 * scalingFactor}px`,
+            fontSize: isMobile ? '12px' : `${11.5 * scalingFactor}px`,
             lineHeight: '1.1',
             padding: scalingFactor > 1.5 ? '0.5rem' : '0rem',
           }}
@@ -74,7 +74,7 @@ const YearMarker = React.memo(({ year, isMobile, scalingFactor }) => (
 export const Section = ({ title, children, isMobile, scalingFactor }) => (
   <div
     className="w-full"
-    style={{ maxWidth: isMobile ? '1000px' : `${1000 * scalingFactor}px` }}
+    style={{ maxWidth: isMobile ? '1500px' : `${1500 * scalingFactor}px` }}
     role="region"
     aria-label={title}
   >
@@ -117,7 +117,7 @@ export const YearLine = ({ selectedEndYear, years, isMobile, scalingFactor }) =>
   <div
     className="relative w-full"
     style={{
-      maxWidth: isMobile ? '1000px' : `${1000 * scalingFactor}px`,
+      maxWidth: isMobile ? '1500px' : `${1500 * scalingFactor}px`,
       height: isMobile ? '40px' : `${50 * scalingFactor}px`,
     }}
   >

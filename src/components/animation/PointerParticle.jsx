@@ -24,9 +24,9 @@ const PointerParticles = () => {
       setPointerValues(event);
       const { scalingFactor } = CanvasUtils.calculateBaseRadiusAndCenter(canvas);
       const particles = CanvasUtils.createParticles(
-        2.5,
+        0.5,
         CanvasUtils.getPointerVelocity(event),
-        1,
+        0.8,
         ctx,
         pointerRef.current,
         scalingFactor,
