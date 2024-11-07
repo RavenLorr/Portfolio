@@ -36,7 +36,7 @@ export const experienceData = {
       {
         startYear: 2023.4,
         endYear: 2024,
-        title: 'Last Defender',
+        title: 'BoxTD',
         subtitle: 'Tower Defence game (Unity) made in 1 month with a college',
         color: 'bg-red-500',
       },
