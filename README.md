@@ -91,7 +91,7 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## 📜 License
 
-This portfolio is licensed under a Creative Commons [Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en).
+This portfolio is licensed under a Creative Commons <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en" target="_blank">Attribution-NonCommercial-NoDerivatives 4.0 International License</a>
 
 You are welcome to view, share, and take inspiration from my work. However, please do not copy, modify, or distribute it without my permission. If you create something inspired by this portfolio, I’d appreciate a shout-out! 🙏
 
@@ -99,9 +99,9 @@ You are welcome to view, share, and take inspiration from my work. However, plea
 
 Thanks to all the developers and their open-source projects that inspired me.
 *Note that all the codes have been modified and adapted to React/Tailwind and my needs and might be improved or completely replaced in the future.*
-- Clint Brown [TimeLine](https://codepen.io/clintabrown/pen/DQmPbp)
-- Jeremie Boulay [Particle Trails](https://codepen.io/Jeremboo/pen/ENVaMY)
-- Ryan Mulligan [pointer-particles](https://codepen.io/hexagoncircle/pen/vYwKNzR)
+- Clint Brown <a href="https://codepen.io/clintabrown/pen/DQmPbp" target="_blank">TimeLine</a>
+- Jeremie Boulay <a href="https://codepen.io/Jeremboo/pen/ENVaMY" target="_blank">Particle Trails</a>
+- Ryan Mulligan <a href="https://codepen.io/hexagoncircle/pen/vYwKNzR" target="_blank">pointer-particles</a>
 
 ## ⭐ Star the Project
 
