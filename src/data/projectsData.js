@@ -1,5 +1,9 @@
 import BoxTD from '@/assets/BoxTD.png';
+import CarReview from '@/assets/CarReview.png';
+import DoA from '@/assets/DoA.png';
 import Portfolio from '@/assets/Portfolio.png';
+import RaceHorizon from '@/assets/RaceHorizon.png';
+import TopVentes from '@/assets/TopVentes.png';
 
 export const projectsData = {
   en: {
@@ -18,7 +22,7 @@ export const projectsData = {
         id: 2,
         name: 'Race Horizon',
         description: 'Top runner mobile game made on my own with Unity',
-        image: '',
+        image: RaceHorizon,
         tags: ['Unity', 'C#', 'Game'],
         liveLink: 'Soon',
         codeLink: 'Private',
@@ -27,7 +31,7 @@ export const projectsData = {
         id: 3,
         name: 'Car Review site',
         description: 'Experimental product review site made in team(2)',
-        image: '',
+        image: CarReview,
         tags: ['React', 'JavaScript', 'Bootstrap'],
         liveLink: 'Soon',
         codeLink: 'Soon',
@@ -39,6 +43,24 @@ export const projectsData = {
         image: Portfolio,
         tags: ['React', 'JavaScript', 'Tailwind CSS'],
         liveLink: 'Soon',
+        codeLink: 'Soon',
+      },
+      {
+        id: 5,
+        name: 'Dead or Alive',
+        description: 'Lead of a RedM server collaboration project made with 8 people (5 devs)',
+        image: DoA,
+        tags: ['Lua', 'JavaScript'],
+        liveLink: 'Not Available',
+        codeLink: 'Soon',
+      },
+      {
+        id: 6,
+        name: 'Top Ventes',
+        description: 'Local accounting application (essential)',
+        image: TopVentes,
+        tags: ['Java'],
+        liveLink: 'Not Available',
         codeLink: 'Soon',
       },
     ],
@@ -59,7 +81,7 @@ export const projectsData = {
         id: 2,
         name: 'Race Horizon',
         description: 'Top runner mobile game made on my own with Unity',
-        image: '',
+        image: RaceHorizon,
         tags: ['Unity', 'C#', 'Game'],
         liveLink: 'Bientôt',
         codeLink: 'Privé',
@@ -68,7 +90,7 @@ export const projectsData = {
         id: 3,
         name: 'Site de Critique de Voiture',
         description: 'Site de test de produits expérimentaux réalisé en équipe(2)',
-        image: '',
+        image: CarReview,
         tags: ['React', 'JavaScript', 'Bootstrap'],
         liveLink: 'Bientôt',
         codeLink: 'Bientôt',
@@ -81,6 +103,24 @@ export const projectsData = {
         tags: ['React', 'JavaScript', 'Tailwind CSS'],
         liveLink: 'Soon',
         codeLink: 'Soon',
+      },
+      {
+        id: 5,
+        name: 'Dead or Alive',
+        description: 'Chef d\'un projet collaboratif serveur RedM réalisé avec 8 personnes (5 devs)',
+        image: DoA,
+        tags: ['Lua', 'JavaScript'],
+        liveLink: 'Plus Disponible',
+        codeLink: 'Bientôt',
+      },
+      {
+        id: 6,
+        name: 'Top Ventes',
+        description: 'Application monoposte de comptabilité (essentiel)',
+        image: TopVentes,
+        tags: ['Java'],
+        liveLink: 'Pas Disponible',
+        codeLink: 'Bientôt',
       },
     ],
   },
