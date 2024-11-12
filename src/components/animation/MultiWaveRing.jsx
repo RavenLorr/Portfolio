@@ -69,8 +69,12 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
 
     function drawRing(ring, index) {
       const ctx = ctxRef.current;
-      const { baseRadius, ringCenterX, ringCenterY, scalingFactor } =
-        CanvasUtils.calculateBaseRadiusAndCenter(canvasRef.current);
+      const canvas = canvasRef.current;
+      const { baseRadius, scalingFactor } =
+        CanvasUtils.calculateBaseRadiusAndCenter(canvas);
+
+      const ringCenterX = canvas.width / 2;
+      const ringCenterY = canvas.height / 2;
 
       // Adjust ring properties based on scalingFactor
       const adjustedRadius = ring.radius * scalingFactor;
@@ -201,7 +205,9 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
     };
   }, [canvasId, text]);
 
-  return null;
+  return (
+    <canvas id={canvasId} className="fixed top-0 left-0 w-full h-full"></canvas>
+  );
 }
 
 export default MultiWaveRing;

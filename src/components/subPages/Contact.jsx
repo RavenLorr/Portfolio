@@ -5,10 +5,9 @@ import React, { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FaDiscord, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 
+import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 import { useLanguage } from '@/context/LanguageContext.jsx';
 import { contactData } from '@/data/contactData.js';
-
-import withPageBuilder from '@/components/hoc/withPageBuilder.jsx';
 
 const MAX_MESSAGE_LENGTH = 5000;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;

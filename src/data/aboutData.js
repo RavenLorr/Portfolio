@@ -1,4 +1,14 @@
 import { FaUser, FaRunning, FaCamera, FaPencilAlt, FaFlag, FaMapMarkerAlt, FaLanguage } from 'react-icons/fa';
+const birthDate = new Date(`${import.meta.env.VITE_BIRTH_DATE}T12:00:00`);
+let age = new Date().getFullYear() - birthDate.getFullYear() -
+  (new Date() < new Date(new Date().getFullYear(), birthDate.getMonth(), birthDate.getDate()) ? 1 : 0);
+
+// eslint-disable-next-line no-undef
+setInterval(() => {
+  const newAge = new Date().getFullYear() - birthDate.getFullYear() -
+    (new Date() < new Date(new Date().getFullYear(), birthDate.getMonth(), birthDate.getDate()) ? 1 : 0);
+  age = newAge;
+}, 3600000);
 
 export const aboutData = {
   locationIcon: FaMapMarkerAlt,
@@ -12,7 +22,7 @@ export const aboutData = {
         icon: FaUser,
         title: 'The Basics',
         content:
-          'My name is Étienne, even thought I am commonly reffered to by my English name Ethan. I am a 21-year-old developer born in Québec, Canada. Currently, ' +
+          'My name is Étienne, even thought I am commonly reffered to by my English name Ethan. I am a '+age+'-year-old developer born in Québec, Canada. Currently, ' +
           'I am completing my studies in Application Development while also engaging in various contract and personal projects.',
       },
       sport: {
@@ -54,7 +64,7 @@ export const aboutData = {
         icon: FaUser,
         title: 'Les Bases',
         content:
-          "Je m'appelle Étienne, bien que je sois normalement appelé par mon nom anglais Ethan. Je suis un développeur de 21 ans, né au Québec, Canada." +
+          "Je m'appelle Étienne, bien que je sois normalement appelé par mon nom anglais Ethan. Je suis un développeur de "+age+" ans, né au Québec, Canada." +
           "je complète actuellement mes études en développement d'applications tout en travaillant sur divers projets personnels et contractuels.",
       },
       sport: {
