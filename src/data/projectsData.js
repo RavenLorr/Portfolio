@@ -42,8 +42,8 @@ export const projectsData = {
         description: 'My personal portfolio made with love',
         image: Portfolio,
         tags: ['React', 'JavaScript', 'Tailwind CSS'],
-        liveLink: 'Soon',
-        codeLink: 'Soon',
+        liveLink: 'https://ravenlorr.com/',
+        codeLink: 'https://github.com/RavenLorr/Portfolio',
       },
       {
         id: 5,
@@ -101,8 +101,8 @@ export const projectsData = {
         description: 'Mon portfolio personnel fait avec amour',
         image: Portfolio,
         tags: ['React', 'JavaScript', 'Tailwind CSS'],
-        liveLink: 'Soon',
-        codeLink: 'Soon',
+        liveLink: 'https://ravenlorr.com/',
+        codeLink: 'https://github.com/RavenLorr/Portfolio',
       },
       {
         id: 5,
