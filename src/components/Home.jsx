@@ -6,7 +6,7 @@ function Home() {
       <div className="absolute inset-0 z-10">
         <FlowerShoots />
       </div>
-      <div className="absolute inset-0 z-20">
+      <div className="fixed inset-0 z-20">
         <canvas id="smoky-ring" className="w-full h-full"></canvas>
         <MultiWaveRing canvasId="smoky-ring" />
       </div>
