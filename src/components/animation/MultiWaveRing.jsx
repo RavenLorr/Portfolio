@@ -81,6 +81,7 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
         adjustedWaveAmplitude;
       const x = ringCenterX + radius * Math.cos(angle);
       const y = ringCenterY + radius * Math.sin(angle);
+
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
@@ -114,8 +115,7 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
 
     if (!canvas || !ctx) return;
 
-    // eslint-disable-next-line no-undef
-    const now = performance.now();
+    const now = window.performance.now();
     performanceRef.current.frameCount++;
     if (now >= performanceRef.current.lastFrameTime + 1000) {
       performanceRef.current.fps = performanceRef.current.frameCount;
@@ -135,15 +135,18 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
     const { baseRadius, ringCenterX, ringCenterY, scalingFactor } =
       CanvasUtils.calculateBaseRadiusAndCenter(canvas);
 
+    const shadowBlurFactor = Math.min(10 * scalingFactor, 15);
+
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 40 * scalingFactor;
-    ctx.shadowColor = '#ffffff';
-    ctx.shadowBlur = 15 * scalingFactor;
+    ctx.shadowColor = 'rgba(255, 255, 255, 1)';
+    ctx.shadowBlur = shadowBlurFactor;
     ctx.beginPath();
     ctx.arc(ringCenterX, ringCenterY, baseRadius, 0, Math.PI * 2);
     ctx.stroke();
 
     const fontSize = Math.round(60 * (scalingFactor / 1.5));
+    ctx.imageSmoothingEnabled = false;
     ctx.font = `bold ${fontSize}px 'Space Game'`;
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
