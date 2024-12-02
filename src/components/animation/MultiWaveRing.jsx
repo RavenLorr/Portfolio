@@ -1,7 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 
 import { CanvasUtils } from '@/utils/canvasUtils.js';
-import { Particle } from '@/utils/ParticleClass.js';
 
 function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
   const animationRef = useRef(null);
@@ -54,7 +53,6 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
 
   const wavePoints = 100;
   const fixedSpeed = 0.02;
-  const particleGenerationProbability = 0.05;
 
   const drawRing = useCallback((ring, index, ctx, canvas) => {
     const { baseRadius, ringCenterX, ringCenterY, scalingFactor } =
@@ -74,7 +72,6 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
     }
 
     ctx.beginPath();
-    const points = [];
     for (let i = 0; i <= wavePoints; i++) {
       const angle = (i / wavePoints) * Math.PI * 2;
       const radius =
@@ -84,7 +81,6 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
         adjustedWaveAmplitude;
       const x = ringCenterX + radius * Math.cos(angle);
       const y = ringCenterY + radius * Math.sin(angle);
-      points.push({ x, y, angle });
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
@@ -103,29 +99,6 @@ function MultiWaveRing({ canvasId, text = 'RavenLorr' }) {
     ctx.strokeStyle = gradient;
     ctx.lineWidth = adjustedLineWidth;
     ctx.stroke();
-
-    if (Math.random() < particleGenerationProbability) {
-      const point = points[Math.floor(Math.random() * points.length)];
-      const size = (Math.random() * 20 + 1) * scalingFactor;
-      const speed = (Math.random() * 0.5 + 0.2) * scalingFactor;
-      const inward = Math.random() < 0.3;
-      const direction =
-        point.angle + (inward ? Math.PI : 0) + (Math.random() - 0.5) * Math.PI * 0.5;
-      const life = (inward ? 1300 : 1450) * scalingFactor;
-      particlesRef.current.push(
-        Particle.createRingParticle(
-          point.x,
-          point.y,
-          size,
-          speed,
-          direction,
-          life,
-          inward,
-          ringCenterX,
-          ringCenterY
-        )
-      );
-    }
   }, []);
 
   const drawParticles = useCallback((ctx, canvas) => {
